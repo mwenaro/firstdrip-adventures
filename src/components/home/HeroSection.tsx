@@ -14,7 +14,7 @@ export const HeroSection: React.FC = () => {
 
             </div>
             <p className="text-xl text-gray-700 mb-10">
-              Unlock East Africa's Hidden Treasures - From Spectacular Safaris to Pristine Coastal Paradises
+              Unlock East Africa&apos;s Hidden Treasures - From Spectacular Safaris to Pristine Coastal Paradises
             </p>
             <div className="flex justify-center space-x-4">
               <Button size="lg" className="bg-blue-600 hover:bg-blue-700">

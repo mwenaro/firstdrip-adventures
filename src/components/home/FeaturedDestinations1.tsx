@@ -4,8 +4,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { TextReveal } from "@/components/ui/text-reveal";
-import { AnimatedBeam } from "../ui/animated-beam";
+// import { TextReveal } from "@/components/ui/text-reveal";
+// import { AnimatedBeam } from "../ui/animated-beam";
 
 
 const featuredDestinations = [
@@ -65,7 +65,7 @@ export const FeaturedDestinations: React.FC = () => {
     <div className="container mx-auto py-16 px-4 relative">
       <div className="text-center mb-12 relative z-10">
         <h2 className="text-4xl font-bold text-gray-900">
-          <TextReveal text="Featured Destinations" />
+          {/* <TextReveal text="Featured Destinations" /> */}
         </h2>
         <p className="text-gray-600 mt-4">
           Discover East Africa's Most Iconic Locations
@@ -96,13 +96,13 @@ export const FeaturedDestinations: React.FC = () => {
                 ref={(el) => cardRefs.current[index] = el as any}
                 className="w-80 hover:shadow-xl transition-all flex-shrink-0 relative overflow-hidden"
               >
-                <AnimatedBeam
+                {/* <AnimatedBeam
                   containerRef={containerRef}
                   fromRef={cardRefs.current[index] as any}
                   toRef={(cardRefs.current[index + 1] || cardRefs.current[0]) as any}
                   className="absolute inset-0 z-0 opacity-30"
                   duration={3}
-                />
+                /> */}
                 <Image
                   width={320}
                   height={256}
