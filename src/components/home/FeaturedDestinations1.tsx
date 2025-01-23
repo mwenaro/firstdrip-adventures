@@ -93,7 +93,7 @@ export const FeaturedDestinations: React.FC = () => {
             .map((dest, index) => (
               <Card
                 key={index}
-                ref={(el) => cardRefs.current[index] = el as any}
+                ref={(el) => cardRefs.current[index] = el as unknown as any}
                 className="w-80 hover:shadow-xl transition-all flex-shrink-0 relative overflow-hidden"
               >
                 {/* <AnimatedBeam
