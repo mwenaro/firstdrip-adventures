@@ -1,6 +1,7 @@
 // components/sections/Testimonials.tsx
 import { Quote } from "lucide-react";
-import { SparklesText } from "../ui/sparkles-text";
+// import { SparklesText } from "../ui/sparkles-text";
+import Image from "next/image";
 
 const testimonials = [
   {
@@ -29,9 +30,11 @@ export const Testimonials: React.FC = () => {
           {testimonials.map((test, index) => (
             <div key={index} className="bg-white p-8 rounded-lg shadow-md">
               <Quote className="text-blue-500 mb-4" />
-              <p className="italic text-gray-700 mb-6">"{test.text}"</p>
+              <p className="italic text-gray-700 mb-6">&quot;{test.text}&quot;</p>
               <div className="flex items-center">
-                <img 
+                <Image
+                width={1024} 
+                height={1024}
                   src={test.image} 
                   alt={test.name} 
                   className="w-16 h-16 rounded-full mr-4 object-cover"

@@ -68,7 +68,7 @@ export const FeaturedDestinations: React.FC = () => {
           {/* <TextReveal text="Featured Destinations" /> */}
         </h2>
         <p className="text-gray-600 mt-4">
-          Discover East Africa's Most Iconic Locations
+          Discover East Africa&lsquo;s Most Iconic Locations
         </p>
       </div>
 
