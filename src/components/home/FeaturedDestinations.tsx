@@ -58,7 +58,7 @@ export const FeaturedDestinations: React.FC = () => {
   }, [handleNext]);
 
   return (
-    <div className="container mx-auto py-16 px-4">
+    <div className="container mx-auto py-6  md:py-16 px-4">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-gray-900">
           Featured Destinations
@@ -68,7 +68,7 @@ export const FeaturedDestinations: React.FC = () => {
         </p>
       </div>
 
-      <div className="relative flex items-center justify-center">
+      <div className="w-full relative flex items-center justify-center">
         {/* Previous Button */}
         <Button
           variant="outline"
@@ -80,13 +80,13 @@ export const FeaturedDestinations: React.FC = () => {
         </Button>
 
         {/* Destination Cards */}
-        <div className="flex space-x-6 overflow-hidden">
+        <div className="mx-auto w-11/12 flex space-x-4 md:justify-around overflow-hidden">
           {featuredDestinations
             .slice(startIndex, startIndex + 3)
             .map((dest, index) => (
               <Card
                 key={index}
-                className="w-80 hover:shadow-xl transition-all flex-shrink-0"
+                className="w-1/3 min-w-80 hover:shadow-xl transition-all flex-shrink-0"
               >
                 <Image
                   width={100}

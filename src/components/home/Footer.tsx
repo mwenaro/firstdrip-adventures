@@ -11,7 +11,7 @@ export const Footer: React.FC = () => {
           <div>
             <h3 className="text-2xl font-bold mb-4">FirstDrip Adventures</h3>
             <p className="text-gray-400 mb-4">
-              Discover East Africa's hidden treasures with our expertly curated safaris and custom travel experiences.
+              Discover East Africa&apos;s hidden treasures with our expertly curated safaris and custom travel experiences.
             </p>
             <p className="text-sm text-gray-500">Your journey begins with us.</p>
           </div>

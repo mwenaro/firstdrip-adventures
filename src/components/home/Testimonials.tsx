@@ -10,7 +10,7 @@ const testimonials = [
   },
   {
     name: "John Smith",
-    location: "Singapore",
+    location: "Canadagit",
     text: "The wildlife safari exceeded all my expectations. Professional guides and amazing experiences.",
     image: "/testimonials/john.webp"
   },
