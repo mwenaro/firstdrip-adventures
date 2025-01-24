@@ -9,7 +9,7 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import React, { PropsWithChildren, useRef } from "react";
+import React, { PropsWithChildren, useCallback, useRef } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -45,12 +45,22 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
   ) => {
     const mouseX = useMotionValue(Infinity);
 
-    const renderChildren = () => {
-      return React.Children.map(children, (child) => {
-        if (React.isValidElement(child) && child.type === DockIcon) {
+    const handleMouseMove = useCallback(
+      (e: React.MouseEvent) => mouseX.set(e.pageX),
+      [mouseX],
+    );
+
+    const handleMouseLeave = useCallback(() => mouseX.set(Infinity), [mouseX]);
+
+    const renderChildren = () =>
+      React.Children.map(children, (child) => {
+        if (
+          React.isValidElement(child) &&
+          (child.type as any).displayName === "DockIcon"
+        ) {
           return React.cloneElement(child, {
-            ...child.props,
-            mouseX: mouseX,
+            ...child.props as any,
+            mouseX,
             size: iconSize,
             magnification: iconMagnification,
             distance: iconDistance,
@@ -58,19 +68,18 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
         }
         return child;
       });
-    };
 
     return (
       <motion.div
         ref={ref}
-        onMouseMove={(e) => mouseX.set(e.pageX)}
-        onMouseLeave={() => mouseX.set(Infinity)}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
         {...props}
-        className={cn(dockVariants({ className }), {
+        className={cn(dockVariants(), {
           "items-start": direction === "top",
           "items-center": direction === "middle",
           "items-end": direction === "bottom",
-        })}
+        }, className)}
       >
         {renderChildren()}
       </motion.div>
@@ -81,15 +90,29 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
 Dock.displayName = "Dock";
 
 export interface DockIconProps
-  extends Omit<MotionProps & React.HTMLAttributes<HTMLDivElement>, "children"> {
+  extends Omit<
+    React.HTMLAttributes<HTMLDivElement>,
+    | "onAnimationStart"
+    | "onDrag"
+    | "onDragEnd"
+    | "onDragStart"
+    | "onPointerDown"
+    | "onPointerUp"
+    | "style"
+  >,
+    MotionProps {
   size?: number;
   magnification?: number;
   distance?: number;
   mouseX?: MotionValue<number>;
   className?: string;
   children?: React.ReactNode;
-  props?: PropsWithChildren;
+  // Explicitly reintroduce 'style' to match MotionProps
+  style?: MotionProps["style"];
 }
+
+
+
 
 const DockIcon = ({
   size = DEFAULT_SIZE,
@@ -124,7 +147,11 @@ const DockIcon = ({
   return (
     <motion.div
       ref={ref}
-      style={{ width: scaleSize, height: scaleSize, padding }}
+      style={{
+        width: scaleSize,
+        height: scaleSize,
+        padding: `${padding}px`,
+      }}
       className={cn(
         "flex aspect-square cursor-pointer items-center justify-center rounded-full",
         className,
