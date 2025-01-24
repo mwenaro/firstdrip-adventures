@@ -19,18 +19,18 @@ export const HeroSection: React.FC = () => {
         <div className="max-w-4xl mx-auto text-center">
           {/* Logo & Title */}
           <div className="flex justify-center items-center mb-6">
-            <Globe className="w-16 h-16 text-blue-600 mr-4 animate-bounce" />
-            <h1 className="text-6xl font-extrabold text-gray-900 animate-text">
+            <Globe className="w-12 sm:w-14 md:w-16 h-12 sm:h-14 md:h-16 text-blue-600 mr-3 sm:mr-4 animate-bounce" />
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 animate-text">
               <SparklesText text="FirstDrip Adventures" />
             </h1>
           </div>
           {/* Subtitle */}
-          <p className="text-xl text-gray-800 font-light mb-10">
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-800 font-light mb-8 sm:mb-10">
             Explore East Africa&apos;s Spectacular Safaris and Pristine Coastal Paradises
           </p>
 
           {/* Buttons */}
-          <div className="flex justify-center space-x-4">
+          <div className="flex justify-center flex-wrap gap-4">
             <Button
               size="lg"
               className="bg-blue-600 hover:bg-blue-700 shadow-lg transform hover:scale-105 transition-transform"
@@ -49,8 +49,8 @@ export const HeroSection: React.FC = () => {
       </div>
 
       {/* Subtle Floating Icons */}
-      <div className="absolute -top-10 left-10 w-32 h-32 bg-blue-200 rounded-full opacity-20 animate-pulse"></div>
-      <div className="absolute bottom-10 right-10 w-40 h-40 bg-blue-300 rounded-full opacity-30 animate-pulse-slow"></div>
+      <div className="absolute -top-10 left-10 w-24 h-24 sm:w-32 sm:h-32 bg-blue-200 rounded-full opacity-20 animate-pulse"></div>
+      <div className="absolute bottom-10 right-10 w-32 h-32 sm:w-40 sm:h-40 bg-blue-300 rounded-full opacity-30 animate-pulse-slow"></div>
     </div>
   );
 };
