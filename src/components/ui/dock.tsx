@@ -9,7 +9,7 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import React, { PropsWithChildren, useCallback, useRef } from "react";
+import React, {  useCallback, useRef } from "react";
 
 import { cn } from "@/lib/utils";
 
