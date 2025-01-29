@@ -1,6 +1,7 @@
 import { Globe, Plane } from "lucide-react";
 import { Button } from "../ui/button";
 import { SparklesText } from "../ui/sparkles-text";
+import { MyShimmerButton } from "../custom/MyShimmerButton";
 
 export const HeroSection: React.FC = () => {
   return (
@@ -31,12 +32,13 @@ export const HeroSection: React.FC = () => {
 
           {/* Buttons */}
           <div className="flex justify-center flex-wrap gap-4">
-            <Button
-              size="lg"
-              className="bg-blue-600 hover:bg-blue-700 shadow-lg transform hover:scale-105 transition-transform"
+            <MyShimmerButton background="blue" shimmerSize="0.5rem" shimmerColr="gold"
+            
+              className="bg-blue-600 hover:bg-blue-700 shadow-lg transform hover:scale-105 transition-transform rounded-sm"
             >
               <Plane className="mr-2" /> Explore Packages
-            </Button>
+          
+            </MyShimmerButton>
             <Button
               size="lg"
               variant="outline"
