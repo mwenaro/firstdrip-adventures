@@ -1,7 +1,8 @@
 // components/Hero.tsx
-import { Button } from '@/components/ui/button'
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
-export  function Hero() {
+export function Hero() {
   return (
     <section className="bg-purple-900 text-white py-20">
       <div className="container mx-auto px-4 flex items-center justify-between">
@@ -17,7 +18,9 @@ export  function Hero() {
           </Button>
         </div>
         <div className="hidden lg:block">
-          <img
+          <Image
+            width={100}
+            height={100}
             src="/api/placeholder/500/500"
             alt="Student learning"
             className="rounded-full"
@@ -25,5 +28,5 @@ export  function Hero() {
         </div>
       </div>
     </section>
-  )
+  );
 }
