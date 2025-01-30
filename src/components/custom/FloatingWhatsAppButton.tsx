@@ -24,7 +24,7 @@ export function FloatingWhatsAppButton() {
 
   return (
     <div
-      className="fixed bottom-8 right-8 bg-green-500 p-4 rounded-full shadow-lg cursor-pointer hover:bg-green-600 transition-all"
+      className="z-50 fixed bottom-8 right-8 bg-green-500 p-4 rounded-full shadow-lg cursor-pointer hover:bg-green-600 transition-all"
       onClick={handleClick}
     >
       <MessageCircle className="text-white" size={32} />
