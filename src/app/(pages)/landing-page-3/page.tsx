@@ -1,5 +1,5 @@
 'use client'
-import { ArrowRight, MapPin, Globe, Hotel, Plane, Star, Check, Mail, Phone } from "lucide-react";
+import { ArrowRight,  Star,  Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button"; // shadcn button
 import Link from "next/link";
 import Image from "next/image";

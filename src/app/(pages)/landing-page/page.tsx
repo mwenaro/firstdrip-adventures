@@ -1,14 +1,5 @@
 "use client";
-import {
-  ArrowRight,
-  MapPin,
-  Globe,
-  Hotel,
-  Plane,
-  Star,
-  Check,
-  Mail,
-} from "lucide-react";
+import { ArrowRight, MapPin, Globe, Hotel, Star, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button"; // shadcn button
 import Link from "next/link";
 import Image from "next/image";
@@ -337,8 +328,6 @@ export default function Home() {
           </motion.div>
         </div>
       </motion.section>
-
-      
 
       {/* Newsletter Section */}
       <motion.section
