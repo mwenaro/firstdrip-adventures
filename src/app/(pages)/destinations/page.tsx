@@ -2,7 +2,7 @@ import { TouristDestinationCard } from "@/components/custom/TouristDestinationCa
 import { Footer } from "@/components/home/Footer";
 import { kenyaTouristDestinations } from "@/data/touristDestinations";
 
-export default function Home() {
+export default function DestinationsPage() {
   return (
     <>
       <div className="container mx-auto p-4">
