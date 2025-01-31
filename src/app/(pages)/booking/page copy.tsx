@@ -41,7 +41,7 @@ interface BookingFormProps {
   destination?: TouristDestination;
 }
 
-export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
+ const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
   const {
     control,
     handleSubmit,
