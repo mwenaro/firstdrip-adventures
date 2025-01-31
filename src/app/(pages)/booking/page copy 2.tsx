@@ -12,7 +12,6 @@ import {
   Calendar,
   User,
   Mail,
-  Info,
   Phone,
   Globe,
   User as UserIcon,
@@ -37,8 +36,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { countriesList as countries } from "@/data/countryList";
-
-
 
 interface BookingFormProps {
   destination?: TouristDestination;
@@ -92,7 +89,9 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
           <CardTitle className="text-2xl font-bold flex items-center gap-2">
             {destination?.name || "Book Your Trip"}
           </CardTitle>
-          <p className="text-sm text-gray-600">{destination?.location || "Select a destination"}</p>
+          <p className="text-sm text-gray-600">
+            {destination?.location || "Select a destination"}
+          </p>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Name */}
@@ -107,7 +106,9 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
               placeholder="Enter your full name"
             />
             {errors.name && (
-              <span className="text-sm text-red-500">{errors.name.message}</span>
+              <span className="text-sm text-red-500">
+                {errors.name.message}
+              </span>
             )}
           </div>
 
@@ -134,7 +135,9 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
               )}
             />
             {errors.gender && (
-              <span className="text-sm text-red-500">{errors.gender.message}</span>
+              <span className="text-sm text-red-500">
+                {errors.gender.message}
+              </span>
             )}
           </div>
 
@@ -169,7 +172,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
                     <SelectValue placeholder="Select Country" />
                   </SelectTrigger>
                   <SelectContent>
-                    {Object.entries(countries).map(([code,name]) => (
+                    {Object.entries(countries).map(([code, name]) => (
                       <SelectItem key={code} value={name}>
                         {name}
                       </SelectItem>
@@ -179,7 +182,9 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
               )}
             />
             {errors.citizenship && (
-              <span className="text-sm text-red-500">{errors.citizenship.message}</span>
+              <span className="text-sm text-red-500">
+                {errors.citizenship.message}
+              </span>
             )}
           </div>
 
@@ -220,10 +225,14 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
               />
             </div>
             {errors.arrivalDate && (
-              <span className="text-sm text-red-500">{errors.arrivalDate.message}</span>
+              <span className="text-sm text-red-500">
+                {errors.arrivalDate.message}
+              </span>
             )}
             {errors.departureDate && (
-              <span className="text-sm text-red-500">{errors.departureDate.message}</span>
+              <span className="text-sm text-red-500">
+                {errors.departureDate.message}
+              </span>
             )}
           </div>
 
@@ -239,7 +248,9 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
               placeholder="Enter your email"
             />
             {errors.email && (
-              <span className="text-sm text-red-500">{errors.email.message}</span>
+              <span className="text-sm text-red-500">
+                {errors.email.message}
+              </span>
             )}
           </div>
 
