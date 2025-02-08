@@ -1,6 +1,7 @@
 'use client'; // Ensure this component is treated as a Client Component
 
 import { MessageCircle } from "lucide-react";
+import { SocialIcon } from "react-social-icons";
 
 export function FloatingWhatsAppButton() {
   const phoneNumber = process.env.WHATSAPP_NUMBER || +254792982134; // WhatsApp number from environment variables
@@ -24,10 +25,13 @@ export function FloatingWhatsAppButton() {
 
   return (
     <div
-      className="z-50 fixed bottom-8 right-8 bg-green-500 p-4 rounded-full shadow-lg cursor-pointer hover:bg-green-600 transition-all"
+      // className="z-50 fixed bottom-8 right-8 bg-green-500 p-4 rounded-full shadow-lg cursor-pointer hover:bg-green-600 transition-all"
+      className="z-50 fixed bottom-8 right-8  rounded-full shadow-lg cursor-pointer transition-all"
+
       onClick={handleClick}
     >
-      <MessageCircle className="text-white" size={32} />
+      {/* <MessageCircle className="text-white" size={32} /> */}
+      <SocialIcon className="text-white w-full h-full text-3xl" url="https://www.whatsapp.com/" />
     </div>
   );
 }
