@@ -1,6 +1,6 @@
 'use client'; // Ensure this component is treated as a Client Component
 
-import { MessageCircle } from "lucide-react";
+// import { MessageCircle } from "lucide-react";
 import { SocialIcon } from "react-social-icons";
 
 export function FloatingWhatsAppButton() {
