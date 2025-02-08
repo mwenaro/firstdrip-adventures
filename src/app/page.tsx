@@ -14,7 +14,7 @@ export default function HomePage() {
       <HeroSection />
       <FeaturedDestinations />
       <section className="w-full bg-gray-50 ">
-        <div className="flex items-center justify-center space-y-6">
+        <div className="flex items-center justify-center py-6">
           <h2 className="text-4xl font-bold text-gray-900">
             Tour Packages
           </h2>

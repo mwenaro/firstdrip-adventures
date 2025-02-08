@@ -9,9 +9,9 @@ import { Button } from "@/components/ui/button";
 
 
 
-interface TourPackageProps extends ITourPackage { }
+// interface TourPackageProps extends ITourPackage { }
 
-const TourPackage: React.FC<TourPackageProps> = ({ title, included, excluded, itinerary }) => {
+const TourPackage: React.FC<ITourPackage> = ({ title, included, excluded, itinerary }) => {
   return (
     <Card className="w-full  max-w-7xl mx-auto shadow-lg rounded-lg">
       <CardHeader>
