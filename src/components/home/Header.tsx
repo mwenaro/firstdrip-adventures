@@ -8,7 +8,7 @@ import React from "react";
 
 export const Header = () => {
   return (
-    <header className="bg-blue-900 text-white">
+    <header className="bg-blue-900 text-white fixed w-full z-50">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link
