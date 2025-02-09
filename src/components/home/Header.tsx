@@ -9,7 +9,7 @@ export const Header = () => {
   const pathname = usePathname(); // Get the current route
 
   return (
-    <header className="bg-blue-900 text-white fixed w-full z-50">
+    <header className="bg-blue-900 text-white fixed w-full z-50 left-0 top-0">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link

@@ -55,8 +55,8 @@ const tourPackages = [
 
 export const TourPackages = () => {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Tour Packages</h1>
+    <div className="container mx-auto px-4 py-4">
+      <h1 className="text-3xl font-bold mb-6 text-center md:text-4xl">Tour Packages</h1>
       <div className="space-y-6">
         {tourPackages.map((pkg, index) => (
           <TourPackage key={index} {...pkg} />
