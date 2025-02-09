@@ -2,11 +2,12 @@
 
 import { MAIN_NAV_LINKS } from "@/data/nav";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
-
-
 export const Header = () => {
+  const pathname = usePathname(); // Get the current route
+
   return (
     <header className="bg-blue-900 text-white fixed w-full z-50">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -23,7 +24,13 @@ export const Header = () => {
           {MAIN_NAV_LINKS
             .filter((link) => !link.isCTA)
             .map((link) => (
-              <Link key={link.href} href={link.href} className="hover:text-blue-400">
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`hover:text-blue-400 ${
+                  pathname === link.href ? "text-blue-300 font-semibold" : ""
+                }`}
+              >
                 {link.label}
               </Link>
             ))}
@@ -36,7 +43,11 @@ export const Header = () => {
             <Link
               key={link.href}
               href={link.href}
-              className="hidden md:inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+              className={`hidden md:inline-block px-4 py-2 rounded transition ${
+                pathname === link.href
+                  ? "bg-blue-600"
+                  : "bg-blue-500 hover:bg-blue-600"
+              }`}
             >
               {link.label}
             </Link>
@@ -75,8 +86,14 @@ export const Header = () => {
               href={link.href}
               className={`${
                 link.isCTA
-                  ? "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
-                  : "hover:text-blue-400"
+                  ? `px-4 py-2 rounded transition ${
+                      pathname === link.href
+                        ? "bg-blue-600"
+                        : "bg-blue-500 hover:bg-blue-600"
+                    }`
+                  : `hover:text-blue-400 ${
+                      pathname === link.href ? "text-blue-300 font-semibold" : ""
+                    }`
               }`}
             >
               {link.label}
