@@ -1,7 +1,7 @@
 export const MAIN_NAV_LINKS = [
     { href: "/", label: "Home" },
     // { href: "/about", label: "About" },
-    { href: "/tours", label: "Tours" },
+    // { href: "/tours", label: "Tours" },
     { href: "/packages", label: "Packages" },
     { href: "/gallery", label: "Gallery" },
     // { href: "/blog", label: "Blog" },
