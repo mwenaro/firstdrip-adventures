@@ -1,5 +1,4 @@
 import { TouristDestinationCard } from "@/components/custom/TouristDestinationCard";
-import { Footer } from "@/components/home/Footer";
 import { kenyaTouristDestinations } from "@/data/touristDestinations";
 
 export default function DestinationsPage() {
@@ -15,7 +14,7 @@ export default function DestinationsPage() {
           ))}
         </div>
       </div>
-      <Footer />
+     
     </>
   );
 }
