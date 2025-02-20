@@ -40,7 +40,6 @@ import {
 } from "@/components/ui/select";
 import { countriesList as countries } from "@/data/countryList";
 import { Textarea } from "@/components/ui/textarea";
-import { Footer } from "@/components/home/Footer";
 
 export interface BookingFormProps {
   destination?: TouristDestination;
@@ -311,7 +310,6 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
           </CardFooter>
         </Card>
       </MagicCard>
-      <Footer />
     </>
   );
 };
