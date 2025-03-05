@@ -33,7 +33,7 @@ interface SubjectState {
 export const useSubjectStore = create<SubjectState>()(
   devtools(
     persist(
-      (set, get) => ({
+      (set) => ({
         subjects: [],
         loading: false,
         error: null,

@@ -33,7 +33,7 @@ interface StudentState {
 export const useStudentStore = create<StudentState>()(
   devtools(
     persist(
-      (set, get) => ({
+      (set) => ({
         students: [],
         loading: false,
         error: null,

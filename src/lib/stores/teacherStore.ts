@@ -33,7 +33,7 @@ interface TeacherState {
 export const useTeacherStore = create<TeacherState>()(
   devtools(
     persist(
-      (set, get) => ({
+      (set) => ({
         teachers: [],
         loading: false,
         error: null,
