@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import InputField from "../InputField";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 const schema = z.object({
   username: z
@@ -144,7 +145,12 @@ const StudentForm = ({
             className="text-xs text-gray-500 flex items-center gap-2 cursor-pointer"
             htmlFor="img"
           >
-            <Image src="/u-dashboard/upload.png" alt="" width={28} height={28} />
+            <Image
+              src="/u-dashboard/upload.png"
+              alt=""
+              width={28}
+              height={28}
+            />
             <span>Upload a photo</span>
           </label>
           <input type="file" id="img" {...register("img")} className="hidden" />
@@ -155,9 +161,9 @@ const StudentForm = ({
           )}
         </div>
       </div>
-      <button className="bg-blue-400 text-white p-2 rounded-md">
+      <Button className="bg-blue-400 text-white p-2 rounded-md">
         {type === "create" ? "Create" : "Update"}
-      </button>
+      </Button>
     </form>
   );
 };

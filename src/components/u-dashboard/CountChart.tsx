@@ -59,13 +59,13 @@ const CountChart = ({title}:{title?:string}) => {
       <div className="flex justify-center gap-16">
         <div className="flex flex-col gap-1">
           <div className="w-5 h-5 bg-lamaSky rounded-full" />
-          <h1 className="font-bold">1,234</h1>
-          <h2 className="text-xs text-gray-300">Boys (55%)</h2>
+          <h2 className="font-bold">1,234</h2>
+          <h3 className="text-xs text-gray-300">Boys (55%)</h3>
         </div>
         <div className="flex flex-col gap-1">
           <div className="w-5 h-5 bg-lamaYellow rounded-full" />
-          <h1 className="font-bold">1,234</h1>
-          <h2 className="text-xs text-gray-300">Girls (45%)</h2>
+          <h2 className="font-bold">1,234</h2>
+          <h3 className="text-xs text-gray-300">Girls (45%)</h3>
         </div>
       </div>
     </div>
