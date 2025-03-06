@@ -3,7 +3,7 @@ import { ClassModel } from "@/models/Class";
 import { NextRequest, NextResponse } from "next/server";
 type Query = { params: { id: string } };
 
-export async function GET(req: NextRequest, { params: { id } }: Query) {
+export async function GET(req: NextRequest, { params: { id } }: any) {
 console.log(req)
   try {
     await dbCon();
