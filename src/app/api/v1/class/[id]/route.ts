@@ -2,11 +2,11 @@ import { dbCon } from "@/libs/mongoose/dbCon";
 import { ClassModel } from "@/models/Class";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params:{id} }: { params: { id: string } }) {
   console.log(req);
   try {
     await dbCon();
-    const fetchedClass = await ClassModel.findById(params.id);
+    const fetchedClass = await ClassModel.findById(id);
     if (!fetchedClass)
       return NextResponse.json(
         { success: false, message: "Not Found" },
