@@ -2,11 +2,10 @@ import { dbCon } from "@/libs/mongoose/dbCon";
 import { CourseRegistration } from "@/models/CourseRegistration";
 
 import { NextRequest, NextResponse } from "next/server";
-type IQuery = {
-  params: { id: string; role: string };
-};
+
 // GET: Retrieve all Courseregistrations
-export async function GET(req: NextRequest, { params: { id } }: IQuery) {
+export async function GET(req: NextRequest, { params: { id } }: any) {
+  console.log(req);
   try {
     await dbCon();
     const fetchedStudent = await CourseRegistration.findById(id);
@@ -22,7 +21,7 @@ export async function GET(req: NextRequest, { params: { id } }: IQuery) {
 }
 
 // PUT: Update an existing Courseregistration
-export async function PUT(req: NextRequest, { params: { id } }: IQuery) {
+export async function PUT(req: NextRequest, { params: { id } }: any) {
   try {
     const body = await req.json();
 
@@ -45,7 +44,8 @@ export async function PUT(req: NextRequest, { params: { id } }: IQuery) {
 }
 
 // DELETE: Remove a Courseregistration by ID
-export async function DELETE(req: NextRequest, { params: { id } }: IQuery) {
+export async function DELETE(req: NextRequest, { params: { id } }: any) {
+  console.log(req);
   try {
     if (!id)
       return NextResponse.json({ message: "ID is required" }, { status: 400 });
