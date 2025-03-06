@@ -1,5 +1,5 @@
 import { generateAdminNotificationTemplate } from "./email-templates";
-const nodemailer = require("nodemailer");
+import nodemailer from 'nodemailer'
 
 // Configure the Nodemailer transporter with correct SSL/TLS settings
 const transporter = nodemailer.createTransport({

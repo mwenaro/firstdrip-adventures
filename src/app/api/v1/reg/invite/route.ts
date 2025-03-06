@@ -4,6 +4,7 @@ import { RegistrationInvitation } from "@/models/RegistrationInvite";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
+console.log(req)
   try {
     await dbCon();
     const fetchedInvitations = await RegistrationInvitation.find({});

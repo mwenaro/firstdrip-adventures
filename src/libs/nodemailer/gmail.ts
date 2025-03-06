@@ -2,25 +2,22 @@
 // import { render } from "@react-email/components";
 // import { renderToHTML, renderToHTMLImpl } from "next/dist/server/render";
 
-const nodemailer = require("nodemailer");
+import nodemailer from "nodemailer";
 type Mailer = (
   to: string,
   subject: string,
   body: string,
-  bodyType?: 'html' | 'react' | 'text',
+  bodyType?: "html" | "react" | "text",
   sender?: string | undefined
 ) => any;
 // const reactBody = renderToHTML(<Email url="https://example.com" />);
 // const resolvedReactBody = await reactBody;
 
-
-
-
 export const sendTestEmail: Mailer = async (
   to,
   subject,
   body,
-  bodyType = 'text',
+  bodyType = "text",
   sender = undefined
 ) => {
   // Create a nodemailer transport object
@@ -35,8 +32,8 @@ export const sendTestEmail: Mailer = async (
       pass: process.env.NEXT_PUBLIC_EMAIL_PWD,
     },
     tls: {
-      rejectUnauthorized: true  // Set to true in production
-  }
+      rejectUnauthorized: true, // Set to true in production
+    },
   });
 
   // Define the email message
@@ -44,24 +41,22 @@ export const sendTestEmail: Mailer = async (
     from: any;
     to: string | string[];
     subject: string;
-    text?: string 
+    text?: string;
     html?: any;
   } = {
     // from: process.env.NEXT_PUBLIC_EMAIL_USER as string,
     // from: sender? sender: "Mombasa DigitalSolutions<mweroabdalla@gmail.com>",
-    from: sender??"EasyTruck <info@easytruck.com>",
+    from: sender ?? "EasyTruck <info@easytruck.com>",
     to: Array.isArray(to) ? to.join(", ") : to,
     subject: subject || "Test Email",
     text: body || "Test email text",
   };
-  if (['react', 'html'].includes(bodyType)) {
+  if (["react", "html"].includes(bodyType)) {
     delete message["text"];
-     message["html"] = body;
+    message["html"] = body;
     // if(bodyType === 'html') message["html"] = body;
     // else message['html'] = resolvedReactBody;
   }
-
-  
 
   try {
     // Send the email

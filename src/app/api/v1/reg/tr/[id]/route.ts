@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 type Query = { params: { id: string } };
 
 export async function GET(req: NextRequest, { params: { id } }: Query) {
+console.log(req)
   try {
     await dbCon();
     const fetchedTr = await TeacherSubject.findOne({ _id: id });
@@ -23,6 +24,7 @@ export async function GET(req: NextRequest, { params: { id } }: Query) {
 }
 
 export async function PUT(req: NextRequest, { params: { id } }: Query) {
+console.log(req)
   const body = await req.json();
   try {
     await dbCon();
@@ -42,6 +44,7 @@ export async function PUT(req: NextRequest, { params: { id } }: Query) {
 }
 
 export async function DELETE(req: NextRequest, { params: { id } }: Query) {
+console.log(req)
   try {
     await dbCon();
     const updatedTrs = await TeacherSubject.findByIdAndDelete(id);

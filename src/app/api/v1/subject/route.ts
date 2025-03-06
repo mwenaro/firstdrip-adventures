@@ -5,6 +5,7 @@ import { Subject } from "@/models/Subject";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
+console.log(req)
   try {
     await dbCon();
     const fetchedSubjects = await Subject.find({});

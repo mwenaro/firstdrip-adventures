@@ -5,6 +5,7 @@ import { School } from "@/models/School";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
+  console.log(req);
   try {
     await dbCon();
     const fetchedClasses = await ClassModel.find({});
@@ -22,12 +23,12 @@ export async function POST(req: NextRequest) {
   if (!Object.keys(body[0]).includes("school")) {
     const school = await School.findOne({});
     body = body.map((cls: any) => {
-      const { year, name,isGraduated, ...others } = cls;
+      const { year, name, isGraduated, ...others } = cls;
       return {
         ...others,
         name,
         school: school?._id,
-        isGraduated:['true', true].includes(isGraduated)? true:false,
+        isGraduated: ["true", true].includes(isGraduated) ? true : false,
         steps: [
           {
             year: year,

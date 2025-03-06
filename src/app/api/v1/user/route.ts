@@ -4,6 +4,7 @@ import { User } from "@/models/User";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
+console.log(req)
   try {
     await dbCon();
     const fetchedUsers = await User.find({$or:[{ role: "user" }, {role:'admin'}]});

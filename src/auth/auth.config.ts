@@ -111,7 +111,7 @@ const authConfig = {
               role: "user", // Assign default role
               authProvider: "google",
               googleId: user.id
-            });
+            }) as unknown as any;
           }
 
           // Continue the sign-in process

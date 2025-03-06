@@ -5,6 +5,7 @@ import { CourseRegistration } from "@/models/CourseRegistration";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
+console.log(req)
   try {
     await dbCon();
     const fetchedStudents = await CourseRegistration.find({

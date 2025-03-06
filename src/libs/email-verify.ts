@@ -1,12 +1,14 @@
 // emailVerification.ts
 
 // import verifier from 'email-verify';
-const  verifier =  require('email-verify')
+// // const  verifier =  require('email-verify')
+// import verifier from 'email-verify'
+// type VerifyCallback = (err: Error | null, info: any) => boolean;
 
-type VerifyCallback = (err: Error | null, info: any) => boolean;
+// const verifyEmail = (email: string, callback: VerifyCallback): boolean  => {
+//   return verifier.verify(email, callback);
+// };
 
-const verifyEmail = (email: string, callback: VerifyCallback): boolean  => {
-  return verifier.verify(email, callback);
-};
+// export { verifyEmail };
 
-export { verifyEmail };
+export {}

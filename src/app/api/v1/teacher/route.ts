@@ -4,6 +4,7 @@ import { Teacher } from "@/models/Teacher";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
+console.log(req)
   try {
     await dbCon();
     const fetchedTeachers = await Teacher.find({});
