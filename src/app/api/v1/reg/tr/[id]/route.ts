@@ -1,9 +1,9 @@
 import { dbCon } from "@/libs/mongoose/dbCon";
 import { TeacherSubject } from "@/models/TeacherSub";
 import { NextRequest, NextResponse } from "next/server";
-type Query = { params: { id: string } };
 
-export async function GET(req: NextRequest, { params: { id } }: Query) {
+
+export async function GET(req: NextRequest, { params: { id } }: any) {
 console.log(req)
   try {
     await dbCon();
@@ -23,7 +23,7 @@ console.log(req)
   }
 }
 
-export async function PUT(req: NextRequest, { params: { id } }: Query) {
+export async function PUT(req: NextRequest, { params: { id } }: any) {
 console.log(req)
   const body = await req.json();
   try {
@@ -43,7 +43,7 @@ console.log(req)
   }
 }
 
-export async function DELETE(req: NextRequest, { params: { id } }: Query) {
+export async function DELETE(req: NextRequest, { params: { id } }: any) {
 console.log(req)
   try {
     await dbCon();
