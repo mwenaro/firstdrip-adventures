@@ -31,7 +31,7 @@ const authConfig = {
         },
       },
       async authorize(credentials, req) {
-        req
+        console.log(req)
         const { email, password } = credentials as {
           email: string;
           password: string;
