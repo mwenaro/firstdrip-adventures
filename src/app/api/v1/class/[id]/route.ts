@@ -2,11 +2,15 @@ import { dbCon } from "@/libs/mongoose/dbCon";
 import { ClassModel } from "@/models/Class";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, { params:{id} }: { params: { id: string } }) {
+export async function GET(req: NextRequest, context: any) {
   console.log(req);
+
+  // ✅ Extract params and type it inside the function
+  const { params } = context as { params: { id: string } };
+
   try {
     await dbCon();
-    const fetchedClass = await ClassModel.findById(id);
+    const fetchedClass = await ClassModel.findById(params.id);
     if (!fetchedClass)
       return NextResponse.json(
         { success: false, message: "Not Found" },
@@ -22,9 +26,11 @@ export async function GET(req: NextRequest, { params:{id} }: { params: { id: str
   }
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, context: any) {
   console.log(req);
+  const { params } = context as { params: { id: string } };
   const body = await req.json();
+
   try {
     await dbCon();
     const updatedClass = await ClassModel.findByIdAndUpdate(params.id, body, {
@@ -47,8 +53,10 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, context: any) {
   console.log(req);
+  const { params } = context as { params: { id: string } };
+
   try {
     await dbCon();
     const deletedClass = await ClassModel.findByIdAndDelete(params.id);
