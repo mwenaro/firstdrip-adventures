@@ -31,6 +31,7 @@ const authConfig = {
         },
       },
       async authorize(credentials, req) {
+        req
         const { email, password } = credentials as {
           email: string;
           password: string;
@@ -73,7 +74,8 @@ const authConfig = {
     }),
   ],
   callbacks: {
-    async session({ session, user, token }:any) {
+    async session({ session, user, token }: any) {
+      console.log({ token });
       if (user && session) {
         // Add custom session logic, like checking for user roles
         session.user.id = user.id;
@@ -81,6 +83,7 @@ const authConfig = {
       return session; // Allow session to proceed
     },
     async signIn({ user, account, profile }: any) {
+      console.log({ profile });
       try {
         if (account.provider === "google") {
           // Check if the user already exists in the database
@@ -104,14 +107,14 @@ const authConfig = {
             }
           } else {
             // If user doesn't exist, register a new user
-            existingUser = await userService.create({
+            existingUser = (await userService.create({
               name: user.name!,
               email: user.email!,
               image: user.image,
               role: "user", // Assign default role
               authProvider: "google",
-              googleId: user.id
-            }) as unknown as any;
+              googleId: user.id,
+            })) as unknown as any;
           }
 
           // Continue the sign-in process
