@@ -5,16 +5,17 @@ import CountChart from "@/components/u-dashboard/CountChart";
 import EventCalendar from "@/components/u-dashboard/EventCalendar";
 import FinanceChart from "@/components/u-dashboard/FinanceChart";
 import UserCard from "@/components/u-dashboard/UserCard";
-// import { useStudentStore } from "@/lib/stores/studentStore";
-// import { useEffect } from "react";
+import { useMessageStore } from "@/lib/stores/messageStore";
+// import { useMessageStore } from "@/lib/stores/messageStore";
+import { useEffect } from "react";
 
 const AdminPage = () => {
-  // const { fetchStudents, students } = useStudentStore();
+  const { fetchMessages, messages } = useMessageStore();
  
-  // useEffect(() => {
-  //   fetchStudents();
+  useEffect(() => {
+    fetchMessages();
     
-  // }, [fetchStudents]);
+  }, [fetchMessages]);
 
   return (
     <div className="p-4 flex gap-4 flex-col md:flex-row">
@@ -24,7 +25,7 @@ const AdminPage = () => {
         <div className="flex gap-4 justify-between flex-wrap">
           <UserCard type="admin" />
           <UserCard type="booking" />
-          <UserCard type="admin" />
+          <UserCard type="message" num={messages.length || 0} />
           <UserCard type="staff" />
         </div>
         {/* MIDDLE CHARTS */}

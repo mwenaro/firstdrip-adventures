@@ -92,7 +92,7 @@ export const generateUserRegistrationTemplate = (
             <div class="max-w-xl mx-auto bg-white p-6 mt-6 rounded-lg shadow-lg">
               <!-- Header -->
               <div class="text-center">
-                <img src="https://ict.aburayyanacademy.com/favicon/aburayyan-logo.png" alt="Aburayyan Academy Logo" class="w-32 mx-auto mb-4" />
+                <img src="https://aburayyanacademy.com/favicon/aburayyan-logo.png" alt="Aburayyan Academy Logo" class="w-32 mx-auto mb-4" />
                 <h1 class="text-xl font-bold text-gray-800">Welcome, ${userName}!</h1>
               </div>
     

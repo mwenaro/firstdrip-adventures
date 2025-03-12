@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer'
+import nodemailer from "nodemailer";
 
 type Mailer = (
   to: string | string[],
@@ -6,14 +6,14 @@ type Mailer = (
   body: string,
   isHTML?: boolean,
   sender?: string
-) => Promise<{ flag: boolean, info?: any, msg?: string }>;
+) => Promise<{ flag: boolean; info?: any; msg?: string }>;
 
 export const sendTestEmail: Mailer = async (
   to,
   subject,
   body,
   isHTML = false,
-  sender = "EasyTruck <info@easytruck.com>"
+  sender = "FirstDrip Adventures <info@firstdripadventures.com>"
 ) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -26,7 +26,13 @@ export const sendTestEmail: Mailer = async (
     },
   });
 
-  let message : {from:string, to:string, subject:string, text?:string, html?:string} = {
+  let message: {
+    from: string;
+    to: string;
+    subject: string;
+    text?: string;
+    html?: string;
+  } = {
     from: sender,
     to: Array.isArray(to) ? to.join(", ") : to,
     subject: subject || "Test Email",
@@ -34,14 +40,14 @@ export const sendTestEmail: Mailer = async (
 
   if (isHTML) {
     message["html"] = body;
-    message = {...message, html: body };
-  } 
+    message = { ...message, html: body };
+  }
 
   try {
     const info = await transporter.sendMail(message);
     console.log(`Email sent: ${info.messageId}`);
     return { flag: true, info };
-  } catch (error:any) {
+  } catch (error: any) {
     console.error("Error occurred while sending email:", error.message);
     return { flag: false, msg: error.message };
   }
