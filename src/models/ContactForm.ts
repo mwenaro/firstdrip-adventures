@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
-import { ISchool } from "./School"; // Import the ISchool interface
+
 
 // Define the TypeScript interface for the ContactForm document
 export interface IContactForm extends Document {
