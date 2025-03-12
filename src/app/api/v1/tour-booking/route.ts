@@ -1,7 +1,7 @@
 import { dbCon } from "@/libs/mongoose/dbCon";
 import {
   generateAdminBookingNotificationTemplate,
-   generateUserBookingConfirmationTemplate,
+  generateUserBookingConfirmationTemplate,
 } from "@/libs/nodemailer/email-templates-generators";
 import { sendTestEmail } from "@/libs/nodemailer/gmail2";
 import { TourBooking } from "@/models/TourBooking";
@@ -58,6 +58,7 @@ export async function POST(req: NextRequest) {
       { status: 201 }
     );
   } catch (error: any) {
-    return NextResponse.json({ error: error }, { status: 500 });
+    console.log({ error: error.message });
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

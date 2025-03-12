@@ -159,9 +159,9 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
                       <SelectValue placeholder="Select Gender" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="male">Male</SelectItem>
-                      <SelectItem value="female">Female</SelectItem>
-                      <SelectItem value="notSay">Not Say</SelectItem>
+                      <SelectItem value="Male">Male</SelectItem>
+                      <SelectItem value="Female">Female</SelectItem>
+                      {/* <SelectItem value="notSay">Not Say</SelectItem> */}
                     </SelectContent>
                   </Select>
                 )}
