@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
     await Promise.all([
       // send to admin
       sendTestEmail(
-        "mweroabdalla@gmail.com;",
+        "mashudimwayama@gmail.com;mweroabdalla@gmail.com",
         "Tour Booking",
         adminEmailBody,
         true

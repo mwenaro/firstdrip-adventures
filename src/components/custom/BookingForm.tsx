@@ -65,7 +65,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
     },
   });
 
-  const onSubmit = (data: BookingFormData) => {
+  // const onSubmit = (data: BookingFormData) => {
     const onSubmit = async (data: BookingFormData) => {
       const result = await Swal.fire({
         title: "Confirm Booking",
@@ -100,7 +100,8 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
             text: "Your booking has been submitted.",
             icon: "success",
           });
-        } catch (error) {
+        } catch (error:any) {
+          console.log(error.message)
           Swal.fire({
             title: "Error",
             text: "There was a problem submitting your booking. Please try again.",
@@ -110,7 +111,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
       }
     };
 
-  };
+  // };
 
   return (
     <>

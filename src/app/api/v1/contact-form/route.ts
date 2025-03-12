@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
 
     await Promise.all([
       // send to admin
-      sendTestEmail("mweroabdalla@gmail.com", "Contact Form", adminEmailBody,true),
+      sendTestEmail("mashudimwayama@gmail.com;mweroabdalla@gmail.com", "Contact Form", adminEmailBody,true),
       //send to user
       sendTestEmail(email, "Contact Form", userEmailBody,true),
     ]);
