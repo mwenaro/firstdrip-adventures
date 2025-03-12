@@ -66,10 +66,10 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
   });
 
   // const onSubmit = (data: BookingFormData) => {
-    const onSubmit = async (data: BookingFormData) => {
-      const result = await Swal.fire({
-        title: "Confirm Booking",
-        html: `
+  const onSubmit = async (data: BookingFormData) => {
+    const result = await Swal.fire({
+      title: "Confirm Booking",
+      html: `
           <p><strong>Name:</strong> ${data.name}</p>
           <p><strong>Gender:</strong> ${data.gender}</p>
           <p><strong>Telephone:</strong> ${data.tel}</p>
@@ -79,37 +79,37 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
           <p><strong>Email:</strong> ${data.email}</p>
           <p><strong>More Info:</strong> ${data.moreInfo || "N/A"}</p>
         `,
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Confirm",
-        cancelButtonText: "Cancel",
-      });
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Confirm",
+      cancelButtonText: "Cancel",
+    });
 
-      if (result.isConfirmed) {
-        try {
-          const response = await fetch("/api/v1/tour-booking", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-          });
+    if (result.isConfirmed) {
+      try {
+        const response = await fetch("/api/v1/tour-booking", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
 
-          if (!response.ok) throw new Error("Failed to submit booking");
+        if (!response.ok) throw new Error("Failed to submit booking");
 
-          Swal.fire({
-            title: "Success!",
-            text: "Your booking has been submitted.",
-            icon: "success",
-          });
-        } catch (error:any) {
-          console.log(error.message)
-          Swal.fire({
-            title: "Error",
-            text: "There was a problem submitting your booking. Please try again.",
-            icon: "error",
-          });
-        }
+        Swal.fire({
+          title: "Success!",
+          text: "Your booking has been submitted.",
+          icon: "success",
+        });
+      } catch (error: any) {
+        console.log(error.message)
+        Swal.fire({
+          title: "Error",
+          text: "There was a problem submitting your booking. Please try again.",
+          icon: "error",
+        });
       }
-    };
+    }
+  };
 
   // };
 
