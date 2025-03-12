@@ -6,16 +6,19 @@ import EventCalendar from "@/components/u-dashboard/EventCalendar";
 import FinanceChart from "@/components/u-dashboard/FinanceChart";
 import UserCard from "@/components/u-dashboard/UserCard";
 import { useMessageStore } from "@/lib/stores/messageStore";
+import { useTourBookingStore } from "@/lib/stores/tourBookingStore";
 // import { useMessageStore } from "@/lib/stores/messageStore";
 import { useEffect } from "react";
 
 const AdminPage = () => {
   const { fetchMessages, messages } = useMessageStore();
- 
+  const { fetchTourBookings, tourBookings } = useTourBookingStore();
+
   useEffect(() => {
     fetchMessages();
-    
-  }, [fetchMessages]);
+    fetchTourBookings()
+
+  }, [fetchMessages, fetchTourBookings]);
 
   return (
     <div className="p-4 flex gap-4 flex-col md:flex-row">
@@ -24,7 +27,7 @@ const AdminPage = () => {
         {/* USER CARDS */}
         <div className="flex gap-4 justify-between flex-wrap">
           <UserCard type="admin" />
-          <UserCard type="booking" />
+          <UserCard type="booking" num={messages.length || 0} />
           <UserCard type="message" num={messages.length || 0} />
           <UserCard type="staff" />
         </div>
