@@ -82,7 +82,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
         <p><strong>More Info:</strong> ${data.specialRequest || "N/A"}</p>
       `,
       icon: "success",
-      confirmButtonText: "OK",
+      // confirmButtonText: "OK",
       showCancelButton: true,
       confirmButtonText: "Confirm",
       cancelButtonText: "Cancel",
@@ -104,7 +104,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
           icon: "success",
         });
       } catch (error: any) {
-        console.log(error.message)
+        console.log(error.message);
         Swal.fire({
           title: "Error",
           text: "There was a problem submitting your booking. Please try again.",
@@ -118,7 +118,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
 
   return (
     <>
-      <MagicCard className="max-w-lg mx-auto my-10 flex flex-col" >
+      <MagicCard className="max-w-lg mx-auto my-10 flex flex-col">
         <Card className="border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 w-full ">
           <CardHeader>
             <CardTitle className="text-2xl font-bold  gap-2 my-2 text-center underline">
