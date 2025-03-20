@@ -18,6 +18,7 @@ import {
   Phone,
   Globe,
   User as UserIcon,
+  Clock,
 } from "lucide-react";
 
 import { TouristDestination } from "@/data/touristDestinations";
@@ -58,10 +59,10 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
       gender: "",
       tel: "",
       citizenship: "",
-      arrivalDate: new Date(),
-      departureDate: undefined,
+      travelDate: new Date(),
+      numOfDays: 0,
       email: "",
-      moreInfo: "",
+      specialRequest: "",
     },
   });
 
@@ -70,16 +71,18 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
     const result = await Swal.fire({
       title: "Confirm Booking",
       html: `
-          <p><strong>Name:</strong> ${data.name}</p>
-          <p><strong>Gender:</strong> ${data.gender}</p>
-          <p><strong>Telephone:</strong> ${data.tel}</p>
-          <p><strong>Citizenship:</strong> ${data.citizenship}</p>
-          <p><strong>Arrival Date:</strong> ${data.arrivalDate.toLocaleDateString()}</p>
-          <p><strong>Departure Date:</strong> ${data.departureDate?.toLocaleDateString()}</p>
-          <p><strong>Email:</strong> ${data.email}</p>
-          <p><strong>More Info:</strong> ${data.moreInfo || "N/A"}</p>
-        `,
-      icon: "warning",
+        <p><strong>Destination:</strong> ${destination?.name || "N/A"}</p>
+        <p><strong>Name:</strong> ${data.name}</p>
+        <p><strong>Gender:</strong> ${data.gender}</p>
+        <p><strong>Telephone:</strong> ${data.tel}</p>
+        <p><strong>Citizenship:</strong> ${data.citizenship}</p>
+        <p><strong>Date of Travel:</strong> ${data.travelDate.toLocaleDateString()}</p>
+        <p><strong>No. of Days:</strong> ${data.numOfDays}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>More Info:</strong> ${data.specialRequest || "N/A"}</p>
+      `,
+      icon: "success",
+      confirmButtonText: "OK",
       showCancelButton: true,
       confirmButtonText: "Confirm",
       cancelButtonText: "Cancel",
@@ -115,15 +118,15 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
 
   return (
     <>
-      <MagicCard className="max-w-lg mx-auto my-10">
-        <Card className="border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <MagicCard className="max-w-lg mx-auto my-10 flex flex-col" >
+        <Card className="border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 w-full ">
           <CardHeader>
-            <CardTitle className="text-2xl font-bold flex items-center gap-2">
-              {destination?.name || "Book Your Trip"}
+            <CardTitle className="text-2xl font-bold  gap-2 my-2 text-center underline">
+              {destination?.name || "Book Your Safari Here" || "Book Your Trip"}
             </CardTitle>
-            <p className="text-sm text-gray-600">
+            {/* <p className="text-sm text-gray-600">
               {destination?.location || "Select a destination"}
-            </p>
+            </p> */}
           </CardHeader>
           <CardContent className="space-y-6">
             {/* Name */}
@@ -159,8 +162,8 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
                       <SelectValue placeholder="Select Gender" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Male">Male</SelectItem>
-                      <SelectItem value="Female">Female</SelectItem>
+                      <SelectItem value="male">Male</SelectItem>
+                      <SelectItem value="female">Female</SelectItem>
                       {/* <SelectItem value="notSay">Not Say</SelectItem> */}
                     </SelectContent>
                   </Select>
@@ -234,11 +237,11 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
             <div className="space-y-2">
               <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
                 <Calendar className="w-4 h-4" />
-                Arrival and Departure Dates
+                Travel Date
               </label>
               <div className="flex gap-4">
                 <Controller
-                  name="arrivalDate"
+                  name="travelDate"
                   control={control}
                   render={({ field }) => (
                     <div className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -251,33 +254,31 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
                     </div>
                   )}
                 />
-                <Controller
-                  name="departureDate"
-                  control={control}
-                  render={({ field }) => (
-                    <div className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                      <DatePicker
-                        selected={field.value}
-                        onChange={(date) => field.onChange(date)}
-                        placeholderText="Departure Date"
-                        className="w-full"
-                      />
-                    </div>
-                  )}
-                />
               </div>
-              {errors.arrivalDate && (
+              {errors.travelDate && (
                 <span className="text-sm text-red-500">
-                  {errors.arrivalDate.message}
-                </span>
-              )}
-              {errors.departureDate && (
-                <span className="text-sm text-red-500">
-                  {errors.departureDate.message}
+                  {errors.travelDate.message}
                 </span>
               )}
             </div>
 
+            <div className="space-y-2">
+              <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
+                <Clock className="w-4 h-4" />
+                No. of Days
+              </label>
+              <Input
+                type="number"
+                min={1}
+                {...register("numOfDays")}
+                placeholder="Enter Number of Days"
+              />
+              {errors.name && (
+                <span className="text-sm text-red-500">
+                  {errors.name.message}
+                </span>
+              )}
+            </div>
             {/* Email */}
             <div className="space-y-2">
               <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
@@ -301,11 +302,11 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
             <div className="space-y-2">
               <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
                 <Info className="w-4 h-4" />
-                More Information
+                Special request(s)
               </label>
               <Textarea
-                {...register("moreInfo")}
-                placeholder="Enter additional information"
+                {...register("specialRequest")}
+                placeholder="Enter any special requests here"
               />
             </div>
             {/* -------------------------------------- */}
