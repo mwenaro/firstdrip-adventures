@@ -8,10 +8,10 @@ export interface ITourBooking extends Document {
   gender: Gender;
   tel: string;
   citizenship: string;
-  arrivalDate: Date;
-  departureDate?: Date;
+  travelDate: Date;
+  numOfDays: number;
   email: string;
-  moreInfo?: string;
+  specialRequest?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -22,14 +22,16 @@ const TourBookingSchema: Schema = new Schema(
     gender: { type: String, enum: ["Male", "Female", "Other"], required: true },
     tel: { type: String, required: true },
     citizenship: { type: String, required: true },
-    arrivalDate: { type: Date, required: true },
-    departureDate: { type: Date },
+    travelDate: { type: Date, required: true },
+    numOfDays: { type: Number, default: 1 },
     email: { type: String, required: true },
-    moreInfo: { type: String },
+    specialRequest: { type: String },
   },
   {
     timestamps: true, // Automatically manages createdAt and updatedAt fields
   }
 );
 
-export const TourBooking = mongoose.models.TourBooking || mongoose.model<ITourBooking>("TourBooking", TourBookingSchema);
+export const TourBooking =
+  mongoose.models.TourBooking ||
+  mongoose.model<ITourBooking>("TourBooking", TourBookingSchema);
