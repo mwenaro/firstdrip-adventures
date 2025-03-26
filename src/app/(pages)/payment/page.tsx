@@ -2,12 +2,12 @@ import { CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 import { verifyPayment } from '@/lib/stripe-utils';
 
-interface SuccessPageProps {
-  params: any;
-  searchParams: any
-}
+// interface SuccessPageProps {
+//   params: any;
+//   searchParams: any
+// }
 
-export default async function PaymentSuccessPage(props: SuccessPageProps) {
+export default async function PaymentSuccessPage(props: any) {
   const {searchParams} = props
   // Extract and type the search params
   const tourId = searchParams.tour_id as string;
