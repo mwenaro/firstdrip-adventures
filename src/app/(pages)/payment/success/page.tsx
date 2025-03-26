@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { verifyPayment } from '@/lib/stripe-utils';
 
 interface SuccessPageProps {
-  params: { slug: string };
+  params: any;
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
