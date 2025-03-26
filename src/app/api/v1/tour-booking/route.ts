@@ -5,6 +5,7 @@ import {
 } from "@/libs/nodemailer/email-templates-generators";
 import { sendTestEmail } from "@/libs/nodemailer/gmail2";
 import { TourBooking } from "@/models/TourBooking";
+import mongoose from "mongoose";
 
 import { NextRequest, NextResponse } from "next/server";
 
@@ -24,6 +25,10 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   const body = await req.json(),
     { email, name } = body;
+  // Start a Mongoose session for the transaction
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
   try {
     await dbCon();
     const bookingDate = new Date().toLocaleDateString();
@@ -52,12 +57,18 @@ export async function POST(req: NextRequest) {
       sendTestEmail(email, "TourBooking", userEmailBody, true),
     ]);
     const savedTourBooking = await newTourBooking.save();
+    // Commit the transaction if everything succeeds
+    await session.commitTransaction();
+    session.endSession();
 
     return NextResponse.json(
       { success: true, data: savedTourBooking },
       { status: 201 }
     );
   } catch (error: any) {
+    // Roll back the transaction if any error occurs
+    await session.abortTransaction();
+    session.endSession();
     console.log({ error: error.message });
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
