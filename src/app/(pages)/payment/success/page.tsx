@@ -11,7 +11,7 @@ export default async function PaymentSuccessPage({ searchParams }: SuccessPagePr
   // Extract and type the search params
   const tourId = searchParams.tour_id as string;
   const paymentIntentId = searchParams.payment_intent as string;
-  const clientSecret = searchParams.payment_intent_client_secret as string;
+  // const clientSecret = searchParams.payment_intent_client_secret as string;
   const status = searchParams.redirect_status as string;
 
   // Verify the payment on the server side
