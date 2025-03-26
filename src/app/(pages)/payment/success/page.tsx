@@ -4,7 +4,7 @@ import { verifyPayment } from '@/lib/stripe-utils';
 
 interface SuccessPageProps {
   params: any;
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: any
 }
 
 export default async function PaymentSuccessPage({ searchParams }: SuccessPageProps) {
