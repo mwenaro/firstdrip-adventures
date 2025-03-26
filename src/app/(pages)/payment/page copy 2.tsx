@@ -10,15 +10,16 @@ import CheckoutForm from "@/components/CheckoutForm";
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 export default function PaymentPage() {
-  const [clientSecret, setClientSecret] = useState<string>("");
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // In a real app, you would fetch this data or pass it via props
   const tour: Tour = {
     id: "tour_123",
     name: "Serengeti Safari",
     description: "3-day luxury safari experience",
-    price: 50,
+    price: 1200, // in dollars
     imageUrl: "/safari.jpg",
   };
 
@@ -83,7 +84,7 @@ export default function PaymentPage() {
             clientSecret: clientSecret,
           }}
         >
-          <CheckoutForm tour={tour} clientSecret={clientSecret} />
+          {/* <CheckoutForm tour={tour} /> */}
         </Elements>
       </div>
     </div>
