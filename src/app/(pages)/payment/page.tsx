@@ -1,72 +1,91 @@
-import { CheckCircle } from 'lucide-react';
-import Link from 'next/link';
-import { verifyPayment } from '@/lib/stripe-utils';
+"use client";
 
-// interface SuccessPageProps {
-//   params: any;
-//   searchParams: any
-// }
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import { useEffect, useState } from "react";
 
-export default async function PaymentSuccessPage(props: any) {
-  const {searchParams} = props
-  // Extract and type the search params
-  const tourId = searchParams.tour_id as string;
-  const paymentIntentId = searchParams.payment_intent as string;
-  // const clientSecret = searchParams.payment_intent_client_secret as string;
-  const status = searchParams.redirect_status as string;
+import { Tour } from "@/types/tour";
+import CheckoutForm from "@/components/CheckoutForm";
 
-  // Verify the payment on the server side
-  const paymentDetails = await verifyPayment(paymentIntentId);
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+
+export default function PaymentPage() {
+  const [clientSecret, setClientSecret] = useState<string>("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const tour: Tour = {
+    id: "tour_123",
+    name: "Serengeti Safari",
+    description: "3-day luxury safari experience",
+    price: 50,
+    imageUrl: "/safari.jpg",
+  };
+
+  useEffect(() => {
+    async function createPaymentIntent() {
+      try {
+        const response = await fetch("/api/v1/payment/client-secret", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            tourId: tour.id,
+            amount: tour.price,
+            currency: "usd",
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to create payment intent");
+        }
+
+        const data = await response.json();
+        setClientSecret(data.clientSecret);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "An unknown error occurred");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    createPaymentIntent();
+  }, [tour.id, tour.price]);
+
+  if (loading) {
+    return <div className="max-w-2xl mx-auto p-6">Loading payment details...</div>;
+  }
+
+  if (error) {
+    return <div className="max-w-2xl mx-auto p-6 text-red-500">{error}</div>;
+  }
+
+  if (!clientSecret) {
+    return <div className="max-w-2xl mx-auto p-6">Failed to initialize payment</div>;
+  }
 
   return (
-    <div className="max-w-2xl mx-auto p-6 text-center">
-      <div className="flex justify-center mb-6">
-        <CheckCircle className="h-16 w-16 text-green-500" />
-      </div>
-      
-      <h1 className="text-3xl font-bold mb-4">
-        {status === 'succeeded' ? 'Payment Successful!' : 'Payment Processing'}
-      </h1>
-      
-      <div className="bg-white rounded-lg shadow-md p-6 mb-6 text-left">
-        <h2 className="text-xl font-semibold mb-4">Booking Confirmation</h2>
-        
-        <div className="space-y-3">
-          <div className="flex justify-between">
-            <span className="text-gray-600">Tour ID:</span>
-            <span className="font-medium">{tourId}</span>
-          </div>
-          
-          <div className="flex justify-between">
-            <span className="text-gray-600">Amount:</span>
-            <span className="font-medium">
-              ${paymentDetails?.amount ? (paymentDetails.amount / 100).toFixed(2) : 'N/A'}
-            </span>
-          </div>
-          
-          <div className="flex justify-between">
-            <span className="text-gray-600">Status:</span>
-            <span className={`font-medium ${
-              status === 'succeeded' ? 'text-green-600' : 'text-yellow-600'
-            }`}>
-              {status}
-            </span>
-          </div>
-        </div>
+    <div className="max-w-2xl mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-6">Complete Your Booking</h1>
+
+      <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+        <h2 className="text-xl font-semibold mb-2">{tour.name}</h2>
+        <p className="text-gray-600 mb-4">{tour.description}</p>
+        <p className="text-2xl font-bold">${tour.price.toFixed(2)}</p>
       </div>
 
-      <p className="text-lg mb-6">
-        {status === 'succeeded'
-          ? 'Thank you for your booking! A confirmation has been sent to your email.'
-          : 'Your payment is being processed. You will receive a confirmation email shortly.'}
-      </p>
-
-      <Link
-        href="/"
-        className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Back to Home
-      </Link>
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <Elements
+          stripe={stripePromise}
+          options={{
+            appearance: { theme: "stripe" },
+            clientSecret: clientSecret,
+          }}
+        >
+          <CheckoutForm tour={tour} clientSecret={clientSecret} />
+        </Elements>
+      </div>
     </div>
   );
 }
