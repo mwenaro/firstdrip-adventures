@@ -7,7 +7,8 @@ interface SuccessPageProps {
   searchParams: any
 }
 
-export default async function PaymentSuccessPage({ searchParams }: SuccessPageProps) {
+export default async function PaymentSuccessPage(props: SuccessPageProps) {
+  const {searchParams} = props
   // Extract and type the search params
   const tourId = searchParams.tour_id as string;
   const paymentIntentId = searchParams.payment_intent as string;
