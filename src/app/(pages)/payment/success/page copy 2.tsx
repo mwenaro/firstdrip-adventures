@@ -50,7 +50,7 @@ export default async function PaymentSuccessPage({
       </div>
 
       <p className="text-lg mb-6">
-        Thank you for your booking! We've sent a confirmation to your email address.
+        Thank you for your booking! We&apos;ve sent a confirmation to your email address.
         Your tour details and itinerary will be sent within 24 hours.
       </p>
 

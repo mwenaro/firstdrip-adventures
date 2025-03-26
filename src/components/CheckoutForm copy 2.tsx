@@ -37,6 +37,7 @@ export default function CheckoutForm({
         setError(error.message || "Payment failed");
       }
     } catch (err) {
+      console.log(err)
       setError("An unexpected error occurred");
     } finally {
       setLoading(false);

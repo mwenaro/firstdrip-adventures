@@ -44,6 +44,7 @@ export default function CheckoutForm({ tour, clientSecret }: { tour: Tour; clien
         setError(confirmationError.message || 'Payment confirmation failed');
       }
     } catch (err) {
+      console.log(err)
       setError('An unexpected error occurred');
     } finally {
       if (error) {

@@ -32,6 +32,7 @@ export default function CheckoutForm({ tour }: { tour: Tour }) {
         setError(stripeError.message || "Payment failed");
       }
     } catch (err) {
+      console.log(err)
       setError("An unexpected error occurred");
     } finally {
       setLoading(false);

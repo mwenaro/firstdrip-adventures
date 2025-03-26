@@ -5,7 +5,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 
 import { Tour } from "@/types/tour";
-import CheckoutForm from "@/components/CheckoutForm";
+// import CheckoutForm from "@/components/CheckoutForm";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
