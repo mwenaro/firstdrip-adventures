@@ -1,28 +1,6 @@
-// import Stripe from 'stripe';
+import { stripe } from "./stripe";
 
-// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-// export async function verifyPayment(paymentIntentId: string) {
-//   try {
-//     const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
-
-//     return {
-//       amount: paymentIntent.amount,
-//       currency: paymentIntent.currency,
-//       status: paymentIntent.status,
-//       tourName: paymentIntent.metadata.tour_name || 'Unknown Tour',
-//       tourId: paymentIntent.metadata.tour_id,
-//       customerEmail: paymentIntent.receipt_email,
-//     };
-//   } catch (error) {
-//     console.error('Error verifying payment:', error);
-//     return null;
-//   }
-// }
-
-import Stripe from "stripe";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export async function verifyPayment2(paymentIntentId: string) {
   try {
