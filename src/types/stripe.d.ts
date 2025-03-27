@@ -11,6 +11,6 @@ declare global {
   }
 }
 
-declare module '@/lib/stripe' {
-  export const stripe: Stripe;
-}
+// declare module '@/lib/stripe' {
+//   export const stripe: Stripe;
+// }
