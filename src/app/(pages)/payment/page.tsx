@@ -7,7 +7,9 @@ import { useEffect, useState } from "react";
 import { Tour } from "@/types/tour";
 import CheckoutForm from "@/components/CheckoutForm";
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
 
 export default function PaymentPage() {
   const [clientSecret, setClientSecret] = useState<string>("");
@@ -44,7 +46,9 @@ export default function PaymentPage() {
         const data = await response.json();
         setClientSecret(data.clientSecret);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "An unknown error occurred");
+        setError(
+          err instanceof Error ? err.message : "An unknown error occurred"
+        );
       } finally {
         setLoading(false);
       }
@@ -54,7 +58,9 @@ export default function PaymentPage() {
   }, [tour.id, tour.price]);
 
   if (loading) {
-    return <div className="max-w-2xl mx-auto p-6">Loading payment details...</div>;
+    return (
+      <div className="max-w-2xl mx-auto p-6">Loading payment details...</div>
+    );
   }
 
   if (error) {
@@ -62,7 +68,9 @@ export default function PaymentPage() {
   }
 
   if (!clientSecret) {
-    return <div className="max-w-2xl mx-auto p-6">Failed to initialize payment</div>;
+    return (
+      <div className="max-w-2xl mx-auto p-6">Failed to initialize payment</div>
+    );
   }
 
   return (

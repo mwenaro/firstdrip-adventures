@@ -1,8 +1,10 @@
 // app/api/webhook/route.ts
+import { stripe } from "@/lib/stripe";
+import { dbCon } from "@/libs/mongoose/dbCon";
+import { Payment } from "@/models/Payment";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 export async function POST(request: Request) {
@@ -24,6 +26,16 @@ export async function POST(request: Request) {
     case "payment_intent.succeeded":
       const paymentIntent = event.data.object as Stripe.PaymentIntent;
       // Handle successful payment (e.g., update booking status)
+      await dbCon()
+      // Save to MongoDB
+      await Payment.create({
+        amount: paymentIntent.amount / 100,
+        currency: paymentIntent.currency,
+        status: paymentIntent.status,
+        customerEmail: paymentIntent.receipt_email,
+        stripePaymentIntentId: paymentIntent.id,
+        tourId: paymentIntent.metadata.tourId,
+      });
       console.log(`PaymentIntent for ${paymentIntent.amount} was successful!`);
       break;
     case "payment_intent.payment_failed":
