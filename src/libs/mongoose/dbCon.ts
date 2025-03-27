@@ -34,7 +34,7 @@ export async function dbCon() {
 }
 
 // db connect
-async function dbConnect() {
+export async function dbConnect() {
   const dbName =
     process.env.APP_NAME || process.env.DARAJA_API_APP_NAME || "test-db";
   const MONGO_DB_URI = getDbURI(dbName);
