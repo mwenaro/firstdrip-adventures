@@ -1,5 +1,5 @@
 // types/stripe.d.ts
-import { Stripe } from 'stripe';
+// import { Stripe } from 'stripe';
 
 declare global {
   namespace NodeJS {
