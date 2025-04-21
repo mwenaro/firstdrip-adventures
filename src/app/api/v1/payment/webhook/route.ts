@@ -38,6 +38,23 @@ export async function POST(request: Request) {
       });
       console.log(`PaymentIntent for ${paymentIntent.amount} was successful!`);
       break;
+      
+    case "charge.succeeded":
+      const charge = event.data.object as Stripe.Charge;
+
+      await dbCon();
+      await Payment.create({
+        amount: charge.amount / 100,
+        currency: charge.currency,
+        status: charge.status,
+        customerEmail: charge.billing_details.email,
+        stripePaymentIntentId: charge.payment_intent as string,
+        tourId: charge.metadata?.tourId, // Only if you passed it
+      });
+
+      console.log(`Charge for ${charge.amount} was successful!`);
+      break;
+
     case "payment_intent.payment_failed":
       const failedPaymentIntent = event.data.object as Stripe.PaymentIntent;
       console.log(
