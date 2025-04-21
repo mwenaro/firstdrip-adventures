@@ -38,7 +38,7 @@ export async function POST(request: Request) {
       });
       console.log(`PaymentIntent for ${paymentIntent.amount} was successful!`);
       break;
-      
+
     case "charge.succeeded":
       const charge = event.data.object as Stripe.Charge;
 
@@ -47,9 +47,9 @@ export async function POST(request: Request) {
         amount: charge.amount / 100,
         currency: charge.currency,
         status: charge.status,
-        customerEmail: charge.billing_details.email,
+        customerEmail: charge.billing_details.email || 'mwero@gmail.com',
         stripePaymentIntentId: charge.payment_intent as string,
-        tourId: charge.metadata?.tourId, // Only if you passed it
+        tourId: charge.metadata?.tourId || 'tour_123', // Only if you passed it
       });
 
       console.log(`Charge for ${charge.amount} was successful!`);
