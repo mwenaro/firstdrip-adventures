@@ -21,12 +21,12 @@ export async function POST(request: Request) {
     );
     return NextResponse.json({ error: "Webhook error" }, { status: 400 });
   }
-
+  console.log({ eType: event.type });
   switch (event.type) {
     case "payment_intent.succeeded":
       const paymentIntent = event.data.object as Stripe.PaymentIntent;
       // Handle successful payment (e.g., update booking status)
-      await dbCon()
+      await dbCon();
       // Save to MongoDB
       await Payment.create({
         amount: paymentIntent.amount / 100,

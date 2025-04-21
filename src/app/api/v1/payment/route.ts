@@ -70,7 +70,7 @@ export async function GET(request: Request) {
       .sort({ createdAt: -1 })
       .limit(50)
       .lean();
-
+    console.log({ payments });
     return NextResponse.json({ payments });
   } catch (err) {
     console.error("Error fetching payments:", err);
