@@ -1,41 +1,37 @@
-import { NextResponse } from 'next/server';
-import Stripe from 'stripe';
+import { stripe } from "@/lib/stripe";
+import { PaymentStatus } from "@/types/tour";
+import { NextResponse } from "next/server";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   try {
-    const { tourId, amount, currency,tourName="Tour", customerEmail = 'your@email.com' } = await request.json();
-
-    // // Create a PaymentIntent
-    // const paymentIntent = await stripe.paymentIntents.create({
-    //   amount: amount * 100, // Convert to cents
-    //   currency: currency || 'usd',
-    //   metadata: {
-    //     tour_id: tourId,
-    //   },
-    //   // In a real app, you might want to add:
-    //   // automatic_payment_methods: { enabled: true },
-    // });
+    const {
+      bookingId,
+      amount,
+      currency,
+      customerEmail = "your@email.com",
+      paymentType,
+    } = await req.json();
 
     const paymentIntent = await stripe.paymentIntents.create({
-        amount: amount * 100,
-        currency: currency || 'usd',
-        metadata: {
-          tour_id: tourId,
-          tour_name: tourName, // Add this from your request
-          customer_email: customerEmail, // Add this from your request
-        },
-        receipt_email: customerEmail,
-      });
+      amount: amount * 100,
+      currency: currency || "usd",
+      metadata: {
+        paymentType: ["25", "50", "75"].includes(paymentType)
+          ? PaymentStatus.PARTIALLY_PAID
+          : paymentType,
+        bookingId: bookingId,
+        customerEmail: customerEmail, // Add this from your request
+      },
+      receipt_email: customerEmail,
+    });
 
     return NextResponse.json({
       clientSecret: paymentIntent.client_secret,
     });
   } catch (err) {
-    console.error('Stripe error:', err);
+    console.error("Stripe error:", err);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: "Internal server error" },
       { status: 500 }
     );
   }

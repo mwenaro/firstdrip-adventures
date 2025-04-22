@@ -1,27 +1,51 @@
 // models/Payment.ts
-import mongoose, { Document } from "mongoose";
 
-interface IPayment extends Document {
-  amount: number;
-  currency: string;
-  status: string;
-  tourId: string;
-  customerId?: string;
-  customerEmail: string;
-  stripePaymentIntentId: string;
-  createdAt: Date;
-  updatedAt: Date;
+import { PaymentMethod, PaymentOption, PaymentStatus } from "@/types/tour";
+import mongoose, { Schema, Document } from "mongoose";
+
+export interface IPayment extends Document {
+  bookingId: mongoose.Types.ObjectId;
+  method: PaymentMethod;
+  status: PaymentStatus;
+  paidAmount: number;
+  paymentDate: Date;
+  stripePaymentId?: string;
+  paymentOption: PaymentOption;
+  note?: string;
 }
 
-const PaymentSchema = new mongoose.Schema<IPayment>(
+const PaymentSchema = new Schema<IPayment>(
   {
-    amount: { type: Number, required: true },
-    currency: { type: String, required: true },
-    status: { type: String, required: true },
-    tourId: { type: String, required: true },
-    customerId: { type: String },
-    customerEmail: { type: String, required: true },
-    stripePaymentIntentId: { type: String, required: true, unique: true },
+    bookingId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "TourBooking",
+      required: true,
+    },
+    method: {
+      type: String,
+      enum: Object.values(PaymentMethod),
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: Object.values(PaymentStatus),
+      default: PaymentStatus.UNPAID,
+    },
+    paidAmount: {
+      type: Number,
+      required: true,
+    },
+    paymentDate: {
+      type: Date,
+      default: Date.now,
+    },
+    stripePaymentId: { type: String },
+    paymentOption: {
+      type: String,
+      enum: Object.values(PaymentOption),
+      default: PaymentOption.FULL,
+    },
+    note: { type: String },
   },
   { timestamps: true }
 );

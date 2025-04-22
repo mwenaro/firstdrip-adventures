@@ -1,28 +1,44 @@
 "use client";
 
-import { useStripe, useElements, PaymentElement } from "@stripe/react-stripe-js";
+import {
+  useStripe,
+  useElements,
+  PaymentElement,
+} from "@stripe/react-stripe-js";
 import { FormEvent, useState } from "react";
-import { Tour } from "@/types/tour";
+import { Button } from "./ui/button";
 
-export default function CheckoutForm({ tour, clientSecret }: { tour: Tour; clientSecret: string }) {
+type CheckoutFormProps = {
+  bookingId: string;
+  clientSecret: string;
+  customerEmail?: string;
+  amount: number;
+  paymentType: "full" | "25" | "50" | "75" | "custom";
+};
+
+export default function CheckoutForm({
+  bookingId,
+  customerEmail,
+  amount,
+  paymentType,
+  clientSecret,
+}: CheckoutFormProps) {
   const stripe = useStripe();
   const elements = useElements();
+
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    
-    if (!stripe || !elements) {
-      // Stripe.js hasn't loaded yet
-      return;
-    }
+
+    if (!stripe || !elements) return;
 
     setLoading(true);
     setError(null);
 
     try {
-      // First trigger form validation and payment collection
+      // Trigger form validation
       const { error: submitError } = await elements.submit();
       if (submitError) {
         setError(submitError.message || "Form validation failed");
@@ -30,49 +46,50 @@ export default function CheckoutForm({ tour, clientSecret }: { tour: Tour; clien
         return;
       }
 
-      // Then confirm the payment
+      // Confirm the payment
       const { error: confirmationError } = await stripe.confirmPayment({
         elements,
         clientSecret,
         confirmParams: {
-          return_url: `${window.location.origin}/payment/success?tour_id=${tour.id}`,
-          receipt_email: 'customer@example.com', // In real app, collect from form
+          return_url: `${window.location.origin}/payment/success?bookingId=${bookingId}&amount=${amount}&type=${paymentType}`,
+          receipt_email: customerEmail || undefined,
         },
       });
 
       if (confirmationError) {
-        setError(confirmationError.message || 'Payment confirmation failed');
-      }
-    } catch (err) {
-      console.log(err)
-      setError('An unexpected error occurred');
-    } finally {
-      if (error) {
+        setError(confirmationError.message || "Payment confirmation failed");
         setLoading(false);
       }
-      // Note: Don't set loading to false if successful as the page will redirect
+
+      // Don't reset loading to false on success because redirect is immediate
+    } catch (err) {
+      console.error(err);
+      setError("An unexpected error occurred. Please try again.");
+      setLoading(false);
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <PaymentElement options={{
-        fields: {
-          billingDetails: {
-            email: 'auto', // or 'auto' if you want to collect email
-          }
-        }
-      }} />
+      <PaymentElement
+        options={{
+          fields: {
+            billingDetails: {
+              email: "auto", // Let Stripe collect email if needed
+            },
+          },
+        }}
+      />
 
       {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
 
-      <button
+      <Button
         type="submit"
         disabled={!stripe || !elements || loading}
         className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded disabled:opacity-50"
       >
-        {loading ? "Processing..." : `Pay $${tour.price.toFixed(2)}`}
-      </button>
+        {loading ? "Processing..." : `Pay $${amount.toFixed(2)}`}
+      </Button>
     </form>
   );
 }

@@ -4,17 +4,18 @@ import { verifyPayment } from '@/lib/stripe-utils';
 
 interface SuccessPageProps {
   params: any;
-  searchParams: Record<string, string | string[] | undefined>;
+  searchParams: any
 }
 
 export default async function PaymentSuccessPage({ searchParams }: SuccessPageProps) {
-  const bookingId = searchParams.bookingId as string;
+  // Extract and type the search params
+  const tourId = searchParams.tour_id as string;
   const paymentIntentId = searchParams.payment_intent as string;
+  // const clientSecret = searchParams.payment_intent_client_secret as string;
   const status = searchParams.redirect_status as string;
-  const amount = searchParams.amount as string | undefined;
-  const type = searchParams.type as string | undefined;
 
-  const paymentDetails = paymentIntentId ? await verifyPayment(paymentIntentId) : null;
+  // Verify the payment on the server side
+  const paymentDetails = await verifyPayment(paymentIntentId);
 
   return (
     <div className="max-w-2xl mx-auto p-6 text-center">
@@ -26,43 +27,36 @@ export default async function PaymentSuccessPage({ searchParams }: SuccessPagePr
         {status === 'succeeded' ? 'Payment Successful!' : 'Payment Processing'}
       </h1>
       
-      <div className="bg-white rounded-lg shadow-md p-6 mb-6 text-left space-y-3">
-        <h2 className="text-xl font-semibold mb-4">Booking Details</h2>
-
-        {bookingId && (
+      <div className="bg-white rounded-lg shadow-md p-6 mb-6 text-left">
+        <h2 className="text-xl font-semibold mb-4">Booking Confirmation</h2>
+        
+        <div className="space-y-3">
           <div className="flex justify-between">
-            <span className="text-gray-600">Booking ID:</span>
-            <span className="font-medium">{bookingId}</span>
+            <span className="text-gray-600">Tour ID:</span>
+            <span className="font-medium">{tourId}</span>
           </div>
-        )}
-
-        {amount && (
+          
           <div className="flex justify-between">
             <span className="text-gray-600">Amount:</span>
-            <span className="font-medium">${parseFloat(amount).toFixed(2)}</span>
-          </div>
-        )}
-
-        {type && (
-          <div className="flex justify-between">
-            <span className="text-gray-600">Payment Type:</span>
             <span className="font-medium">
-              {type === "full" ? "Full Payment" : `${type}% Partial`}
+              ${paymentDetails?.amount ? (paymentDetails.amount / 100).toFixed(2) : 'N/A'}
             </span>
           </div>
-        )}
-
-        <div className="flex justify-between">
-          <span className="text-gray-600">Payment Status:</span>
-          <span className={`font-medium ${status === 'succeeded' ? 'text-green-600' : 'text-yellow-600'}`}>
-            {status}
-          </span>
+          
+          <div className="flex justify-between">
+            <span className="text-gray-600">Status:</span>
+            <span className={`font-medium ${
+              status === 'succeeded' ? 'text-green-600' : 'text-yellow-600'
+            }`}>
+              {status}
+            </span>
+          </div>
         </div>
       </div>
 
       <p className="text-lg mb-6">
         {status === 'succeeded'
-          ? 'Thank you for your payment! A confirmation has been sent to your email.'
+          ? 'Thank you for your booking! A confirmation has been sent to your email.'
           : 'Your payment is being processed. You will receive a confirmation email shortly.'}
       </p>
 
