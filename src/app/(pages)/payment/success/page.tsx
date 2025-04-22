@@ -1,17 +1,27 @@
+"use client";
 // ✅ app/success/page.tsx
-import { CheckCircle } from 'lucide-react';
-import Link from 'next/link';
-import { verifyPayment } from '@/lib/stripe-utils';
-import { Suspense } from 'react';
+import { CheckCircle } from "lucide-react";
+import Link from "next/link";
+import { verifyPayment } from "@/lib/stripe-utils";
+import { useSearchParams } from "next/navigation";
 
-interface SuccessPageProps {
-  searchParams: any;
-}
+// interface SuccessPageProps {
+//   searchParams: any;
+// }
 
-async function PaymentSuccessContent({ searchParams }: SuccessPageProps) {
-  const { bookingId, payment_intent, amount, type, redirect_status } = searchParams;
+export default async function PaymentSuccessPage() {
+  const searchParams = useSearchParams();
+  const [bookingId, payment_intent, amount, type, redirect_status] = [
+    searchParams.get("bookingId"),
+    searchParams.get("payment_intent"),
+    searchParams.get("amount"),
+    searchParams.get("type"),
+    searchParams.get("redirect_status"),
+  ];
 
-  const paymentDetails = payment_intent ? await verifyPayment(payment_intent) : null;
+  const paymentDetails = payment_intent
+    ? await verifyPayment(payment_intent)
+    : null;
 
   return (
     <div className="max-w-2xl mx-auto p-6 text-center">
@@ -20,7 +30,9 @@ async function PaymentSuccessContent({ searchParams }: SuccessPageProps) {
       </div>
 
       <h2 className="text-3xl font-bold mb-4">
-        {redirect_status === 'succeeded' ? 'Payment Successful!' : 'Payment Processing'}
+        {redirect_status === "succeeded"
+          ? "Payment Successful!"
+          : "Payment Processing"}
       </h2>
 
       <div className="bg-white rounded-lg shadow-md p-6 mb-6 text-left space-y-3">
@@ -36,7 +48,9 @@ async function PaymentSuccessContent({ searchParams }: SuccessPageProps) {
         {amount && (
           <div className="flex justify-between">
             <span className="text-gray-600">Amount:</span>
-            <span className="font-medium">${parseFloat(amount).toFixed(2)}</span>
+            <span className="font-medium">
+              ${parseFloat(amount).toFixed(2)}
+            </span>
           </div>
         )}
 
@@ -51,7 +65,13 @@ async function PaymentSuccessContent({ searchParams }: SuccessPageProps) {
 
         <div className="flex justify-between">
           <span className="text-gray-600">Payment Status:</span>
-          <span className={`font-medium ${redirect_status === 'succeeded' ? 'text-green-600' : 'text-yellow-600'}`}>
+          <span
+            className={`font-medium ${
+              redirect_status === "succeeded"
+                ? "text-green-600"
+                : "text-yellow-600"
+            }`}
+          >
             {redirect_status}
           </span>
         </div>
@@ -65,9 +85,9 @@ async function PaymentSuccessContent({ searchParams }: SuccessPageProps) {
       </div>
 
       <p className="text-lg mb-6">
-        {redirect_status === 'succeeded'
-          ? 'Thank you for your payment! A confirmation has been sent to your email.'
-          : 'Your payment is being processed. You will receive a confirmation email shortly.'}
+        {redirect_status === "succeeded"
+          ? "Thank you for your payment! A confirmation has been sent to your email."
+          : "Your payment is being processed. You will receive a confirmation email shortly."}
       </p>
 
       <Link
@@ -77,13 +97,5 @@ async function PaymentSuccessContent({ searchParams }: SuccessPageProps) {
         Back to Home
       </Link>
     </div>
-  );
-}
-
-export default function PaymentSuccessPage({ searchParams }: SuccessPageProps) {
-  return (
-    <Suspense fallback={<div className="text-center p-8">Loading payment details...</div>}>
-      <PaymentSuccessContent searchParams={searchParams} />
-    </Suspense>
   );
 }
