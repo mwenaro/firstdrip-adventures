@@ -3,21 +3,28 @@
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 
 import { Tour } from "@/types/tour";
 import CheckoutForm from "@/components/CheckoutForm";
+// import { useSearchParams } from "next/navigation";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );
 
 export default function PaymentPage() {
-  const searchParams = useSearchParams();
+  const [params, setParams] = useState<URLSearchParams | null>(null);
 
-  const bookingId = searchParams.get("bookingId");
-  const customerEmail = searchParams.get("customerEmail");
-  const totalAmount = Number(searchParams.get("totalAmount") || 0);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const searchParams = new URLSearchParams(window.location.search);
+      setParams(searchParams);
+    }
+  }, []);
+
+  const bookingId = params?.get("bookingId");
+  const customerEmail = params?.get("customerEmail");
+  const totalAmount = Number(params?.get("totalAmount") || 0);
 
   const [clientSecret, setClientSecret] = useState<string>("");
   const [loading, setLoading] = useState(false);
@@ -71,7 +78,6 @@ export default function PaymentPage() {
           amount,
           currency: "usd",
           paymentType,
-            
         }),
       });
 
