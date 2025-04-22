@@ -4,24 +4,53 @@ import { CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { verifyPayment } from "@/lib/stripe-utils";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
-// interface SuccessPageProps {
-//   searchParams: any;
-// }
+interface PaymentDetails {
+  id?: string;
+  // Add other properties you expect from verifyPayment
+}
 
-export default async function PaymentSuccessPage() {
+export default function PaymentSuccessPage() {
   const searchParams = useSearchParams();
-  const [bookingId, payment_intent, amount, type, redirect_status] = [
-    searchParams.get("bookingId"),
-    searchParams.get("payment_intent"),
-    searchParams.get("amount"),
-    searchParams.get("type"),
-    searchParams.get("redirect_status"),
-  ];
+  const [paymentDetails, setPaymentDetails] = useState<PaymentDetails | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const paymentDetails = payment_intent
-    ? await verifyPayment(payment_intent)
-    : null;
+  const bookingId = searchParams.get("bookingId");
+  const payment_intent = searchParams.get("payment_intent");
+  const amount = searchParams.get("amount");
+  const type = searchParams.get("type");
+  const redirect_status = searchParams.get("redirect_status");
+
+  useEffect(() => {
+    const verifyPaymentDetails = async () => {
+      if (payment_intent) {
+        try {
+          const details = await verifyPayment(payment_intent);
+          setPaymentDetails(details);
+        } catch (error) {
+          console.error("Payment verification failed:", error);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+      }
+    };
+
+    verifyPaymentDetails();
+  }, [payment_intent]);
+
+  if (loading) {
+    return (
+      <div className="max-w-2xl mx-auto p-6 text-center">
+        <div className="flex justify-center mb-6">
+          <div className="h-16 w-16 rounded-full border-4 border-blue-500 border-t-transparent animate-spin"></div>
+        </div>
+        <h2 className="text-3xl font-bold mb-4">Verifying payment...</h2>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-2xl mx-auto p-6 text-center">
