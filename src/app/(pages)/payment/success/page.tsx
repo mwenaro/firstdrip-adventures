@@ -5,7 +5,7 @@ import { CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 
 interface SuccessPageProps {
-  searchParams: Record<string, string>;
+  searchParams: any
 }
 
 export default function PaymentSuccessPage({ searchParams }: SuccessPageProps) {
