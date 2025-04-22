@@ -2,37 +2,38 @@
 
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Tour } from "@/types/tour";
 import CheckoutForm from "@/components/CheckoutForm";
+// import { useSearchParams } from "next/navigation";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );
 
-type PaymentType = "full" | "25" | "50" | "75" | "custom";
-
 export default function PaymentPage() {
-  const [bookingId, setBookingId] = useState<string | null>(null);
-  const [customerEmail, setCustomerEmail] = useState<string | null>(null);
-  const [totalAmount, setTotalAmount] = useState<number>(0);
+  const [params, setParams] = useState<URLSearchParams | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const searchParams = new URLSearchParams(window.location.search);
+      setParams(searchParams);
+    }
+  }, []);
+
+  const bookingId = params?.get("bookingId");
+  const customerEmail = params?.get("customerEmail");
+  const totalAmount = Number(params?.get("totalAmount") || 0);
 
   const [clientSecret, setClientSecret] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [paymentType, setPaymentType] = useState<PaymentType>("full");
+  const [paymentType, setPaymentType] = useState<
+    "full" | "25" | "50" | "75" | "custom"
+  >("full");
   const [customAmount, setCustomAmount] = useState<number>(0);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const searchParams = new URLSearchParams(window.location.search);
-      setBookingId(searchParams.get("bookingId"));
-      setCustomerEmail(searchParams.get("customerEmail"));
-      setTotalAmount(Number(searchParams.get("totalAmount") || 0));
-    }
-  }, []);
 
   const tour: Tour = {
     id: "tour_123",
@@ -42,22 +43,22 @@ export default function PaymentPage() {
     imageUrl: "/safari.jpg",
   };
 
-  const getAmountToPay = useCallback(() => {
+  const getAmountToPay = () => {
     switch (paymentType) {
       case "25":
-        return totalAmount * 0.25;
+        return +totalAmount * 0.25;
       case "50":
-        return totalAmount * 0.5;
+        return +totalAmount * 0.5;
       case "75":
-        return totalAmount * 0.75;
+        return +totalAmount * 0.75;
       case "custom":
         return customAmount;
       default:
         return totalAmount;
     }
-  }, [paymentType, customAmount, totalAmount]);
+  };
 
-  const createPaymentIntent = useCallback(async () => {
+  const createPaymentIntent = async () => {
     if (!bookingId || !customerEmail) {
       setError("Missing bookingId or customerEmail in URL");
       return;
@@ -65,7 +66,7 @@ export default function PaymentPage() {
 
     setLoading(true);
     try {
-      const amount = getAmountToPay();
+      const amount = +getAmountToPay();
       if (amount < 10) throw new Error("Minimum amount is $10");
 
       const response = await fetch("/api/v1/payment/client-secret", {
@@ -89,13 +90,11 @@ export default function PaymentPage() {
     } finally {
       setLoading(false);
     }
-  }, [bookingId, customerEmail, paymentType, getAmountToPay]);
+  };
 
   useEffect(() => {
-    if (bookingId && customerEmail && totalAmount > 0) {
-      createPaymentIntent();
-    }
-  }, [createPaymentIntent, bookingId, customerEmail, totalAmount]);
+    createPaymentIntent();
+  }, [paymentType, customAmount, createPaymentIntent]);
 
   return (
     <div className="max-w-2xl mx-auto p-6">
@@ -116,7 +115,7 @@ export default function PaymentPage() {
                 type="radio"
                 value={type}
                 checked={paymentType === type}
-                onChange={() => setPaymentType(type as PaymentType)}
+                onChange={() => setPaymentType(type as any)}
               />
               {type === "full" && `Full Payment ($${totalAmount})`}
               {type === "25" && `25% ($${(totalAmount * 0.25).toFixed(2)})`}
@@ -148,10 +147,11 @@ export default function PaymentPage() {
             stripe={stripePromise}
             options={{
               appearance: { theme: "stripe" },
-              clientSecret,
+              clientSecret: clientSecret,
             }}
           >
             <CheckoutForm
+              // tour={tour}
               clientSecret={clientSecret}
               amount={getAmountToPay()}
               paymentType={paymentType}
