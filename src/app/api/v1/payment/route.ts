@@ -16,16 +16,6 @@ export async function POST(request: Request) {
       customerEmail = "your@email.com",
     } = await request.json();
 
-    // // Create a PaymentIntent
-    // const paymentIntent = await stripe.paymentIntents.create({
-    //   amount: amount * 100, // Convert to cents
-    //   currency: currency || 'usd',
-    //   metadata: {
-    //     tour_id: tourId,
-    //   },
-    //   // In a real app, you might want to add:
-    //   // automatic_payment_methods: { enabled: true },
-    // });
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount * 100,
