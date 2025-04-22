@@ -2,7 +2,7 @@ import { stripe } from "@/lib/stripe";
 import { dbCon } from "@/libs/mongoose/dbCon";
 import { Payment } from "@/models/Payment";
 import { NextResponse } from "next/server";
-import Stripe from "stripe";
+// import Stripe from "stripe";
 
 // const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
