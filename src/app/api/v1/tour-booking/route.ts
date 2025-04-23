@@ -28,16 +28,16 @@ export async function POST(req: NextRequest) {
   // Start a Mongoose session for the transaction
   const session = await mongoose.startSession();
   session.startTransaction();
-
   try {
     await dbCon();
     const bookingDate = new Date().toLocaleDateString();
     const newTourBooking = new TourBooking(body);
+    const url = `${req.nextUrl.origin}/tour-charging/${newTourBooking._id}`
     const adminEmailBody = generateAdminBookingNotificationTemplate(
       `${name}(${email})`,
       bookingDate,
       body,
-      ""
+      url
     );
     const userEmailBody = generateUserBookingConfirmationTemplate(
       `${name}`,
