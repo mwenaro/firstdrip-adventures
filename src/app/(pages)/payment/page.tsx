@@ -4,7 +4,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { useCallback, useEffect, useState } from "react";
 
-import { Tour } from "@/types/tour";
+// import { Tour } from "@/types/tour";
 import CheckoutForm from "@/components/CheckoutForm";
 
 const stripePromise = loadStripe(
