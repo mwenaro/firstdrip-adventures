@@ -102,8 +102,8 @@ export default function PaymentPage() {
       <h1 className="text-3xl font-bold mb-6">Complete Your Booking</h1>
 
       <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-        <h2 className="text-xl font-semibold mb-2">{tour.name}</h2>
-        <p className="text-gray-600 mb-4">{tour.description}</p>
+        {/* <h2 className="text-xl font-semibold mb-2">{tour.name}</h2>
+        <p className="text-gray-600 mb-4">{tour.description}</p> */}
         <p className="text-2xl font-bold">${totalAmount.toFixed(2)}</p>
       </div>
 
