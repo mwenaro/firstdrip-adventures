@@ -34,13 +34,13 @@ export default function PaymentPage() {
     }
   }, []);
 
-  const tour: Tour = {
-    id: "tour_123",
-    name: "Serengeti Safari",
-    description: "3-day luxury safari experience",
-    price: 1000,
-    imageUrl: "/safari.jpg",
-  };
+  // const tour: Tour = {
+  //   id: "tour_123",
+  //   name: "Serengeti Safari",
+  //   description: "3-day luxury safari experience",
+  //   price: 1000,
+  //   imageUrl: "/safari.jpg",
+  // };
 
   const getAmountToPay = useCallback(() => {
     switch (paymentType) {
@@ -98,7 +98,7 @@ export default function PaymentPage() {
   }, [createPaymentIntent, bookingId, customerEmail, totalAmount]);
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
+    <div className="max-w-2xl mx-auto p-6 mt-20">
       <h1 className="text-3xl font-bold mb-6">Complete Your Booking</h1>
 
       <div className="bg-white rounded-lg shadow-md p-6 mb-6">
