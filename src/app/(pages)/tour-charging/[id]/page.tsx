@@ -8,7 +8,6 @@ import { Loader2, DollarSign } from 'lucide-react';
 import { useSession, signIn } from 'next-auth/react';
 
 // Types
-
 type Gender = 'Male' | 'Female' | 'Other';
 
 enum PaymentStatus {
@@ -43,13 +42,12 @@ const TourCharging = () => {
   const [tour, setTour] = useState<TourBooking | null>(null);
   const [amount, setAmount] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
-  const params = useParams()
-//   data: session,
-  const {  status } = useSession();
+  const params = useParams<{ id: string }>();
+  const { data: session, status } = useSession();
 
   useEffect(() => {
-
     if (status === 'unauthenticated') {
       signIn(undefined, { callbackUrl: window.location.href });
     }
@@ -58,14 +56,20 @@ const TourCharging = () => {
   useEffect(() => {
     const fetchTour = async () => {
       try {
-        const res = await fetch(`/api/v1/tour-booking/${params.id}`);
-        if (!res.ok) {
-          router.back();
+        if (!params.id) {
+          setError('Tour ID is missing');
           return;
         }
+
+        setLoading(true);
+        const res = await fetch(`/api/v1/tour-booking/${params.id}`);
+        
+        if (!res.ok) {
+          throw new Error('Failed to fetch tour details');
+        }
+
         const data = await res.json();
 
-        // If totalAmount is already set, go back
         if (data.totalAmount && data.totalAmount > 0) {
           router.back();
           return;
@@ -73,61 +77,122 @@ const TourCharging = () => {
 
         setTour(data);
         setAmount(data.totalAmount?.toString() || '');
-      } catch (error) {
-        console.error('Error fetching tour:', error);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching tour:', err);
+        setError(err instanceof Error ? err.message : 'Failed to load tour details');
         router.back();
+      } finally {
+        setLoading(false);
       }
     };
 
-    if (status === 'authenticated') {
+    if (status === 'authenticated' && params.id) {
       fetchTour();
     }
   }, [params.id, status, router]);
 
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (/^\d*\.?\d{0,2}$/.test(value)) { // Allows numbers with up to 2 decimal places
+      setAmount(value);
+    }
+  };
+
   const updateAmount = async () => {
     try {
-      if (!amount || parseFloat(amount) <= 0) {
-        alert('Enter a valid amount');
+      const amountValue = parseFloat(amount);
+      if (isNaN(amountValue) || amountValue <= 0) {
+        setError('Please enter a valid amount greater than 0');
         return;
       }
+
       setLoading(true);
+      setError(null);
+      
       const res = await fetch(`/api/v1/tour-booking/${params.id}/tour-charging`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ totalAmount: parseFloat(amount) }),
+        body: JSON.stringify({ totalAmount: amountValue }),
       });
-      if (!res.ok) throw new Error('Failed to update amount');
-      setLoading(false);
+      
+      if (!res.ok) {
+        throw new Error(await res.text() || 'Failed to update amount');
+      }
+
       alert('Amount updated successfully!');
-    } catch (error) {
-      console.error('Error updating amount:', error);
+      router.back();
+    } catch (err) {
+      console.error('Error updating amount:', err);
+      setError(err instanceof Error ? err.message : 'Failed to update amount');
+    } finally {
       setLoading(false);
     }
   };
 
-  if (status === 'loading') return <div className="text-center py-10">Checking session...</div>;
-  if (!tour) return <div className="text-center py-10">Loading...</div>;
+  if (status === 'loading') {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader2 className="animate-spin h-8 w-8 text-blue-500" />
+      </div>
+    );
+  }
+
+  if (!tour) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        {error ? (
+          <div className="text-red-500">{error}</div>
+        ) : (
+          <Loader2 className="animate-spin h-8 w-8 text-blue-500" />
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-xl mx-auto mt-10 p-4">
       <Card>
         <CardContent className="space-y-4 p-6">
           <h2 className="text-2xl font-semibold">Update Tour Charge</h2>
-          <p className="text-gray-600">For: {tour.name}</p>
+          <div className="space-y-2">
+            <p className="text-gray-600">
+              <span className="font-medium">Customer:</span> {tour.name}
+            </p>
+            <p className="text-gray-600">
+              <span className="font-medium">Email:</span> {tour.email}
+            </p>
+            <p className="text-gray-600">
+              <span className="font-medium">Travel Date:</span> {new Date(tour.travelDate).toLocaleDateString()}
+            </p>
+          </div>
+
           <div className="flex items-center gap-2">
             <DollarSign className="text-green-600" />
             <Input
-              type="number"
+              type="text"
+              inputMode="decimal"
               value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              onChange={handleAmountChange}
               className="w-full"
+              placeholder="Enter amount"
             />
           </div>
-          <Button onClick={updateAmount} disabled={loading} className="w-full">
+
+          {error && <div className="text-red-500 text-sm">{error}</div>}
+
+          <Button 
+            onClick={updateAmount} 
+            disabled={loading} 
+            className="w-full"
+          >
             {loading ? (
-              <Loader2 className="animate-spin mr-2" />
+              <>
+                <Loader2 className="animate-spin mr-2 h-4 w-4" />
+                Updating...
+              </>
             ) : (
               'Update Amount'
             )}
