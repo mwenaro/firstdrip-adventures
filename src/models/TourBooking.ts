@@ -4,7 +4,7 @@ import { PaymentStatus, TourStatus } from "@/types/tour";
 import mongoose, { Schema, Document } from "mongoose";
 
 
-type Gender = "Male" | "Female" | "Other";
+type Gender = "male" | "female" | "Other";
 
 export interface ITourBooking extends Document {
   name: string;
@@ -27,7 +27,7 @@ const TourBookingSchema: Schema = new Schema(
     name: { type: String, required: true },
     gender: {
       type: String,
-      enum: ["Male", "Female", "Other"],
+      enum: ["male", "female", "other"],
       required: true,
     },
     tel: { type: String, required: true },
@@ -38,7 +38,7 @@ const TourBookingSchema: Schema = new Schema(
     specialRequest: { type: String },
 
     // 💰 Payment-related
-    totalAmount: { type: Number, required: true },
+    totalAmount: { type: Number,  default:0 },
     paymentStatus: {
       type: String,
       enum: Object.values(PaymentStatus),
