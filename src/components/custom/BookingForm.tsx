@@ -60,7 +60,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
       tel: "",
       citizenship: "",
       travelDate: new Date(),
-      numOfDays: 0,
+      numOfDays: "1",
       email: "",
       specialRequest: "",
     },
