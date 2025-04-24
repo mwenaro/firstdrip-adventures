@@ -46,7 +46,7 @@ const TourCharging = () => {
   const router = useRouter();
   const params = useParams<{ id: string }>();
   const { data: session, status } = useSession();
-
+console.log(session)
   useEffect(() => {
     if (status === 'unauthenticated') {
       signIn(undefined, { callbackUrl: window.location.href });
