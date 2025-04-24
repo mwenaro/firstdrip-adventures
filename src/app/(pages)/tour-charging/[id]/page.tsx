@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -39,11 +39,12 @@ type TourBooking = {
   updatedAt: string;
 };
 
-const TourCharging = ({ params }: { params: { id: string } }) => {
+const TourCharging = () => {
   const [tour, setTour] = useState<TourBooking | null>(null);
   const [amount, setAmount] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const params = useParams()
 //   data: session,
   const {  status } = useSession();
 
