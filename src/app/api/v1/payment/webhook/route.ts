@@ -61,7 +61,7 @@ export async function POST(request: Request) {
         break;
       }
       await dbCon();
-      const { totalAmount, email, name } = await TourBooking.findById(
+      const {  email, name } = await TourBooking.findById(
         bookingId
       );
 
