@@ -1,6 +1,8 @@
 import { dbCon } from "@/libs/mongoose/dbCon";
-import { generateAdminBookingNotificationTemplate, generateUserBookingConfirmationTemplate } from "@/libs/nodemailer/email-templates-generators copy";
-
+import {
+  generateAdminBookingNotificationTemplate,
+  generateUserBookingConfirmationTemplate,
+} from "@/libs/nodemailer/email-templates-generators copy";
 
 import { sendTestEmail } from "@/libs/nodemailer/gmail2";
 import { TourBooking } from "@/models/TourBooking";
@@ -22,53 +24,50 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const body = await req.json(),
-    { email, name } = body;
-  // Start a Mongoose session for the transaction
+  const body = await req.json();
+  const { email, name } = body;
+
   await dbCon();
   const session = await mongoose.startSession();
-  session.startTransaction();
+
   try {
-    const bookingDate = new Date().toLocaleDateString();
-    const newTourBooking = new TourBooking(body);
-    const url = `${req.nextUrl.origin}/tour-charging/${newTourBooking._id}`
-    const adminEmailBody = generateAdminBookingNotificationTemplate(
-      `${name}(${email})`,
-      bookingDate,
-      body,
-      url
-    );
-    const userEmailBody = generateUserBookingConfirmationTemplate(
-      `${name}`,
-      bookingDate,
-      body
-    );
+    await session.withTransaction(async () => {
+      const bookingDate = new Date().toLocaleDateString();
+      const newTourBooking = new TourBooking(body);
 
-    await Promise.all([
-      // send to admin
-      sendTestEmail(
-        "mashudimwayama@gmail.com;mweroabdalla@gmail.com",
-        "Tour Booking",
-        adminEmailBody,
-        true
-      ),
-      //send to user
-      sendTestEmail(email, "TourBooking", userEmailBody, true),
-    ]);
-    const savedTourBooking = await newTourBooking.save();
-    // Commit the transaction if everything succeeds
-    await session.commitTransaction();
-    session.endSession();
+      // Save the booking WITHIN the transaction
+      const savedTourBooking = await newTourBooking.save({ session });
 
-    return NextResponse.json(
-      { success: true, data: savedTourBooking },
-      { status: 201 }
-    );
+      const url = `${req.nextUrl.origin}/tour-charging/${savedTourBooking._id}`;
+      const adminEmailBody = generateAdminBookingNotificationTemplate(
+        `${name} (${email})`,
+        bookingDate,
+        body,
+        url
+      );
+      const userEmailBody = generateUserBookingConfirmationTemplate(
+        name,
+        bookingDate,
+        body
+      );
+
+      // Send emails — still part of transaction logic
+      await Promise.all([
+        sendTestEmail(
+          "mashudimwayama@gmail.com;mweroabdalla@gmail.com",
+          "Tour Booking",
+          adminEmailBody,
+          true
+        ),
+        sendTestEmail(email, "TourBooking", userEmailBody, true),
+      ]);
+    });
+
+    return NextResponse.json({ success: true }, { status: 201 });
   } catch (error: any) {
-    // Roll back the transaction if any error occurs
-    await session.abortTransaction();
-    session.endSession();
-    console.log({ error: error.message });
+    console.error({ error: error.message });
     return NextResponse.json({ error: error.message }, { status: 500 });
+  } finally {
+    session.endSession();
   }
 }
