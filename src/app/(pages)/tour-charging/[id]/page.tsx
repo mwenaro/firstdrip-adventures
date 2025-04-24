@@ -57,7 +57,7 @@ const TourCharging = ({ params }: { params: { id: string } }) => {
   useEffect(() => {
     const fetchTour = async () => {
       try {
-        const res = await fetch(`/api/tours/${params.id}`);
+        const res = await fetch(`/api/v1/tour-booking/${params.id}`);
         if (!res.ok) {
           router.back();
           return;
@@ -90,7 +90,7 @@ const TourCharging = ({ params }: { params: { id: string } }) => {
         return;
       }
       setLoading(true);
-      const res = await fetch(`/api/tours/${params.id}`, {
+      const res = await fetch(`/api/v1/tour-booking/${params.id}/tour-charging`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

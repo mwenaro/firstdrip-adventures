@@ -1,8 +1,7 @@
 import { dbCon } from "@/libs/mongoose/dbCon";
-import {
-  generateAdminBookingNotificationTemplate,
-  generateUserBookingConfirmationTemplate,
-} from "@/libs/nodemailer/email-templates-generators";
+import { generateAdminBookingNotificationTemplate, generateUserBookingConfirmationTemplate } from "@/libs/nodemailer/email-templates-generators copy";
+
+
 import { sendTestEmail } from "@/libs/nodemailer/gmail2";
 import { TourBooking } from "@/models/TourBooking";
 import mongoose from "mongoose";

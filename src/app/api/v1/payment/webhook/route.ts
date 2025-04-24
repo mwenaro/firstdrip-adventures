@@ -5,6 +5,9 @@ import { NextResponse } from "next/server";
 import { PaymentMethod } from "@/types/tour"; // Assuming enum exists
 import { TourPaymentService } from "@/contollers/TourPaymentService";
 import Stripe from "stripe";
+import { TourBooking } from "@/models/TourBooking";
+import { generateUserTourPaymentConfirmation } from "@/libs/nodemailer/email-templates-generators";
+import { sendTestEmail } from "@/libs/nodemailer/gmail2";
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
@@ -16,7 +19,9 @@ export async function POST(request: Request) {
   try {
     event = stripe.webhooks.constructEvent(payload, signature, webhookSecret);
   } catch (err) {
-    console.error(`Webhook Error: ${err instanceof Error ? err.message : "Unknown error"}`);
+    console.error(
+      `Webhook Error: ${err instanceof Error ? err.message : "Unknown error"}`
+    );
     return NextResponse.json({ error: "Webhook error" }, { status: 400 });
   }
 
@@ -55,7 +60,18 @@ export async function POST(request: Request) {
         console.warn("No bookingId found in metadata");
         break;
       }
+      await dbCon();
+      const { totalAmount, email, name } = await TourBooking.findById(
+        bookingId
+      );
 
+      // send email to customer
+      const emailBopdy = generateUserTourPaymentConfirmation(
+        name,
+        `$${charge.amount / 100}`,
+        new Date().toLocaleDateString()
+      );
+      await sendTestEmail(email, "Payment Confirmation", emailBopdy, true);
       await paymentService.addPayment({
         bookingId,
         paidAmount: charge.amount / 100,
