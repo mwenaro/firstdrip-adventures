@@ -55,11 +55,11 @@ export async function POST(req: NextRequest) {
       await Promise.all([
         sendTestEmail(
           "mashudimwayama@gmail.com;mweroabdalla@gmail.com",
-          "Tour Booking",
+          `Tour Booking (${bookingDate})`,
           adminEmailBody,
           true
         ),
-        sendTestEmail(email, "TourBooking", userEmailBody, true),
+        sendTestEmail(email, `Tour Booking (${bookingDate})`, userEmailBody, true),
       ]);
     });
 
