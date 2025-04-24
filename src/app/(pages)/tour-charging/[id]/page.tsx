@@ -45,7 +45,10 @@ const TourCharging = () => {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const params = useParams<{ id: string }>();
-  const { status = true } = useSession();
+  // const { status = true } = useSession();
+  const [status] = useState<"unauthenticated" | "unauthenticated" | any>(
+    "authenticated"
+  );
   // console.log(session);
   useEffect(() => {
     if (status === "unauthenticated") {
