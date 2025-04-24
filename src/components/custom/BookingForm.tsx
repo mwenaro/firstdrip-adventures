@@ -273,9 +273,9 @@ export const BookingForm: React.FC<BookingFormProps> = ({ destination }) => {
                 {...register("numOfDays")}
                 placeholder="Enter Number of Days"
               />
-              {errors.name && (
+              {errors.numOfDays && (
                 <span className="text-sm text-red-500">
-                  {errors.name.message}
+                  {errors.numOfDays.message}
                 </span>
               )}
             </div>
