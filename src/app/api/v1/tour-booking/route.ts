@@ -25,10 +25,10 @@ export async function POST(req: NextRequest) {
   const body = await req.json(),
     { email, name } = body;
   // Start a Mongoose session for the transaction
+  await dbCon();
   const session = await mongoose.startSession();
   session.startTransaction();
   try {
-    await dbCon();
     const bookingDate = new Date().toLocaleDateString();
     const newTourBooking = new TourBooking(body);
     const url = `${req.nextUrl.origin}/tour-charging/${newTourBooking._id}`
