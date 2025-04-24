@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Loader2, DollarSign } from "lucide-react";
-import { useSession, signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 // Types
 type Gender = "Male" | "Female" | "Other";
