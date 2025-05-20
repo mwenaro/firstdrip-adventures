@@ -2,8 +2,9 @@ export interface Tour {
   id: string;
   name: string;
   description: string;
-  price: number;
+  price: number; //amount paid
   imageUrl: string;
+
 }
 
 // enums/PaymentMethod.ts
