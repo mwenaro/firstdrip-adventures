@@ -181,6 +181,315 @@ export const tourPackages: TourPackage[] = [
     ],
   },
   ////// newersv at the top
+
+  {
+    title: "3 DAYS 2 NIGHTS TSAVO EAST SAFARI FROM MOMBASA",
+    days: 3,
+    nights: 2,
+    itinerary: [
+      {
+        day: 1,
+        title: "Day 1: Mombasa to Tsavo East",
+        description:
+          "Morning pickup from Mombasa. Drive to Tsavo East (3hrs). Game drive en route to Ashnil Aruba Lodge. Afternoon safari to spot red elephants and lions. Dinner at lodge.",
+      },
+      {
+        day: 2,
+        title: "Day 2: Full Day in Tsavo East",
+        description:
+          "Sunrise game drive at Aruba Dam. Full-day safari with packed lunch to explore Mudanda Rock and Lugard Falls. Return for sundowner cocktails.",
+      },
+      {
+        day: 3,
+        title: "Day 3: Return to Mombasa",
+        description:
+          "Early morning bush breakfast. Final game drive before returning to Mombasa by 2PM.",
+      },
+    ],
+    included: ["Park fees", "All meals", "Game drives", "Lodge accommodation"],
+    excluded: ["Drinks", "Tips", "Balloon safari ($450)"],
+  },
+  {
+    title: "4 DAYS 3 NIGHTS AMBOSELI & TSAVO WEST COMBO",
+    days: 4,
+    nights: 3,
+    itinerary: [
+      {
+        day: 1,
+        title: "Day 1: Mombasa to Tsavo West",
+        description:
+          "Depart Mombasa early. Visit Mzima Springs for hippos. Overnight at Kilaguni Serena.",
+      },
+      {
+        day: 2,
+        title: "Day 2: Tsavo West to Amboseli",
+        description:
+          "Morning game drive. Drive to Amboseli with Kilimanjaro views. Stay at Ol Tukai Lodge.",
+      },
+      {
+        day: 3,
+        title: "Day 3: Full Day Amboseli",
+        description:
+          "Full-day safari with elephant herds against Kilimanjaro backdrop.",
+      },
+      {
+        day: 4,
+        title: "Day 4: Return to Mombasa",
+        description:
+          "Sunrise photography session. Return via Emali route (6hrs).",
+      },
+    ],
+    included: ["All park fees", "Lodge stays", "Professional guide"],
+    excluded: ["Gratuities", "Personal items"],
+  },
+  {
+    title: "5 DAYS 4 NIGHTS MAASAI MARA FLYING SAFARI",
+    days: 5,
+    nights: 4,
+    itinerary: [
+      {
+        day: 1,
+        title: "Day 1: Fly Mombasa-Mara",
+        description:
+          "Morning flight to Mara. Afternoon game drive. Stay at Mara Serena.",
+      },
+      {
+        day: 2,
+        title: "Day 2: Full Day Mara",
+        description: "Full-day safari with picnic lunch at Mara River.",
+      },
+      {
+        day: 3,
+        title: "Day 3: Balloon Safari",
+        description:
+          "Optional balloon ride at dawn. Cultural visit to Maasai village.",
+      },
+      {
+        day: 4,
+        title: "Day 4: Mara Exploration",
+        description: "Game drives in different sectors.",
+      },
+      {
+        day: 5,
+        title: "Day 5: Return Flight",
+        description: "Final morning drive. Fly back to Mombasa by noon.",
+      },
+    ],
+    included: ["Return flights", "All meals", "Game drives"],
+    excluded: ["Balloon ride ($480)", "Visa fees"],
+  },
+  {
+    title: "6 DAYS 5 NIGHTS SAMBURU & OL PEJETA",
+    days: 6,
+    nights: 5,
+    itinerary: [
+      {
+        day: 1,
+        title: "Day 1: Mombasa to Nairobi",
+        description: "Morning train to Nairobi. Connect to Samburu flight.",
+      },
+      {
+        day: 2,
+        title: "Day 2: Samburu Game Drives",
+        description: "Search for rare species like Grevy's zebra.",
+      },
+      {
+        day: 3,
+        title: "Day 3: Ol Pejeta Conservancy",
+        description: "See rhinos and chimpanzee sanctuary.",
+      },
+      {
+        day: 4,
+        title: "Day 4: Aberdares",
+        description: "Night wildlife viewing at The Ark.",
+      },
+      {
+        day: 5,
+        title: "Day 5: Lake Nakuru",
+        description: "Flamingo viewing and rhino tracking.",
+      },
+      {
+        day: 6,
+        title: "Day 6: Return to Mombasa",
+        description: "Fly back from Nairobi.",
+      },
+    ],
+    included: ["Domestic flights", "All park fees"],
+    excluded: ["International flights", "Travel insurance"],
+  },
+  {
+    title: "2 DAYS 1 NIGHT SHIMBA HILLS GETAWAY",
+    days: 2,
+    nights: 1,
+    itinerary: [
+      {
+        day: 1,
+        title: "Day 1: Mombasa to Shimba",
+        description:
+          "Morning drive (1.5hrs). Hike to Sheldrick Falls. Overnight at Shimba Lodge.",
+      },
+      {
+        day: 2,
+        title: "Day 2: Game Drive & Return",
+        description: "Morning safari for sable antelope. Return by 3PM.",
+      },
+    ],
+    included: ["Park fees", "Guided walks"],
+    excluded: ["Spa treatments"],
+  },
+  {
+    title: "7 DAYS 6 NIGHTS KENYA GRAND CIRCUIT",
+    days: 7,
+    nights: 6,
+    itinerary: [
+      {
+        day: 1,
+        title: "Day 1: Mombasa-Nairobi-Aberdares",
+        description: "Train to Nairobi, transfer to Aberdares.",
+      },
+      {
+        day: 2,
+        title: "Day 2: Lake Nakuru",
+        description: "Rhino and flamingo viewing.",
+      },
+      {
+        day: 3,
+        title: "Day 3: Maasai Mara",
+        description: "Full-day game drives.",
+      },
+      {
+        day: 4,
+        title: "Day 4: Mara Exploration",
+        description: "Optional hot air balloon.",
+      },
+      {
+        day: 5,
+        title: "Day 5: Amboseli",
+        description: "Kilimanjaro views with elephants.",
+      },
+      {
+        day: 6,
+        title: "Day 6: Tsavo West",
+        description: "Mzima Springs visit.",
+      },
+      {
+        day: 7,
+        title: "Day 7: Return to Mombasa",
+        description: "Morning drive back.",
+      },
+    ],
+    included: ["All transport", "Accommodation"],
+    excluded: ["Balloon ride", "Personal expenses"],
+  },
+  {
+    title: "3 DAYS 2 NIGHTS NAIVASHA ADVENTURE",
+    days: 3,
+    nights: 2,
+    itinerary: [
+      {
+        day: 1,
+        title: "Day 1: Mombasa to Naivasha",
+        description: "Train to Nairobi, transfer to Naivasha. Boat ride.",
+      },
+      {
+        day: 2,
+        title: "Day 2: Hell's Gate",
+        description: "Cycling safari and geothermal tour.",
+      },
+      {
+        day: 3,
+        title: "Day 3: Crescent Island & Return",
+        description: "Walking safari before returning.",
+      },
+    ],
+    included: ["Bike rental", "Boat ride"],
+    excluded: ["Train tickets", "Tips"],
+  },
+  {
+    title: "4 DAYS 3 NIGHTS MOUNT KENYA CLIMB",
+    days: 4,
+    nights: 3,
+    itinerary: [
+      {
+        day: 1,
+        title: "Day 1: Mombasa-Nairobi-Nanyuki",
+        description: "Fly to Nairobi, drive to Nanyuki. Acclimatize.",
+      },
+      {
+        day: 2,
+        title: "Day 2: Old Moses Camp",
+        description: "Trek through montane forest (6hrs).",
+      },
+      {
+        day: 3,
+        title: "Day 3: Shipton's Camp",
+        description: "Ascend to 4,200m via Mackinder's Valley.",
+      },
+      {
+        day: 4,
+        title: "Day 4: Summit & Return",
+        description:
+          "Pre-dawn summit attempt (Point Lenana). Descend to Nairobi.",
+      },
+    ],
+    included: ["Park fees", "Mountain gear"],
+    excluded: ["Personal porter ($20/day)", "Flights"],
+  },
+  {
+    title: "5 DAYS 4 NIGHTS LAIKIPIA CONSERVANCIES",
+    days: 5,
+    nights: 4,
+    itinerary: [
+      {
+        day: 1,
+        title: "Day 1: Mombasa to Loisaba",
+        description: "Fly via Nairobi. Evening star beds experience.",
+      },
+      {
+        day: 2,
+        title: "Day 2: Lewa Conservancy",
+        description: "Game drives with rhino tracking.",
+      },
+      {
+        day: 3,
+        title: "Day 3: Ol Pejeta",
+        description: "Visit last northern white rhinos.",
+      },
+      {
+        day: 4,
+        title: "Day 4: Solio Ranch",
+        description: "Private rhino sanctuary visit.",
+      },
+      {
+        day: 5,
+        title: "Day 5: Return to Mombasa",
+        description: "Fly back via Nairobi.",
+      },
+    ],
+    included: ["Charter flights", "Luxury lodges"],
+    excluded: ["Premium drinks", "Spa services"],
+  },
+  {
+    title: "2 DAYS 1 NIGHT NAIROBI STOPOVER",
+    days: 2,
+    nights: 1,
+    itinerary: [
+      {
+        day: 1,
+        title: "Day 1: Mombasa to Nairobi",
+        description:
+          "Morning train. Visit Giraffe Centre and Karen Blixen Museum.",
+      },
+      {
+        day: 2,
+        title: "Day 2: Nairobi National Park",
+        description: "Game drive with city skyline views. Evening flight back.",
+      },
+    ],
+    included: ["Park entry", "Train tickets"],
+    excluded: ["Lunch at Carnivore ($50)"],
+  },
+  //outside-coast of mombasa
   {
     title: "2 DAYS 1 NIGHT MASAI MARA SAFARI PACKAGE",
     days: 2,
