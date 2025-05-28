@@ -54,8 +54,8 @@ export async function POST(req: NextRequest) {
       // Send emails — still part of transaction logic
       await Promise.all([
         sendTestEmail(
-          "mweroabdalla@gmail.com",
-          // "mashudimwayama@gmail.com;mweroabdalla@gmail.com",
+          // "mweroabdalla@gmail.com",
+          "mashudimwayama@gmail.com;mweroabdalla@gmail.com",
           `Tour Booking (${bookingDate})`,
           adminEmailBody,
           true
