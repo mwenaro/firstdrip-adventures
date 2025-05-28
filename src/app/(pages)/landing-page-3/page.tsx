@@ -184,7 +184,7 @@ export default function Home() {
           <motion.div variants={fadeInUp} className="flex flex-col items-center space-y-4">
             <div className="flex items-center">
               <Mail size={20} className="mr-2" />
-              <span>info@firstdripadventures.com</span>
+              <span>info@firstdripadventures.co.ke</span>
             </div>
             <div className="flex items-center">
               <Phone size={20} className="mr-2" />
