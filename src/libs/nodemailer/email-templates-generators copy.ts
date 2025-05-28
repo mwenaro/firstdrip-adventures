@@ -22,7 +22,7 @@ export const generateAdminNotificationTemplate = (
           <body style="background-color: #f4f4f4; color: #333;">
             <div style="max-width: 600px; margin: 20px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
               <div style="text-align: center;">
-                <img src="https://firstdripadventures.com/logo.png" alt="FirstDrip Adventures Logo" style="width: 150px; height: auto;" />
+                <img src="https://firstdripadventures.co.ke/logo.png" alt="FirstDrip Adventures Logo" style="width: 150px; height: auto;" />
                 <h1 style="color: #333;">New Contact Form Submission</h1>
               </div>
               <div>
@@ -37,7 +37,7 @@ export const generateAdminNotificationTemplate = (
               <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #777;">
                 <p>FirstDrip Adventures</p>
                 <p>Nairobi, Kenya</p>
-                <p><a href="mailto:support@firstdripadventures.com" style="color: #007bff; text-decoration: none;">Contact Support</a></p>
+                <p><a href="mailto:support@firstdripadventures.co.ke" style="color: #007bff; text-decoration: none;">Contact Support</a></p>
               </div>
             </div>
           </body>
@@ -65,7 +65,7 @@ export const generateUserConfirmationTemplate = (userName: string): string => {
           <body style="background-color: #f4f4f4; color: #333;">
             <div style="max-width: 600px; margin: 20px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
               <div style="text-align: center;">
-                <img src="https://firstdripadventures.com/logo.png" alt="FirstDrip Adventures Logo" style="width: 150px; height: auto;" />
+                <img src="https://firstdripadventures.co.ke/logo.png" alt="FirstDrip Adventures Logo" style="width: 150px; height: auto;" />
                 <h1 style="color: #333;">Hello, ${userName}!</h1>
               </div>
               <div>
@@ -76,7 +76,7 @@ export const generateUserConfirmationTemplate = (userName: string): string => {
               <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #777;">
                 <p>FirstDrip Adventures</p>
                 <p>Nairobi, Kenya</p>
-                <p><a href="mailto:support@firstdripadventures.com" style="color: #007bff; text-decoration: none;">Contact Support</a></p>
+                <p><a href="mailto:support@firstdripadventures.co.ke" style="color: #007bff; text-decoration: none;">Contact Support</a></p>
               </div>
             </div>
           </body>

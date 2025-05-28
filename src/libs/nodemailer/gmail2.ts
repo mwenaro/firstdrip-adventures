@@ -13,7 +13,7 @@ export const sendTestEmail: Mailer = async (
   subject,
   body,
   isHTML = false,
-  sender = "FirstDrip Adventures <info@firstdripadventures.com>"
+  sender = "FirstDrip Adventures <info@firstdripadventures.co.ke>"
 ) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",

@@ -129,11 +129,11 @@ export default function PaymentPage() {
           {paymentType === "custom" && (
             <input
               type="number"
-              min={10}
+              // min={10}
               max={totalAmount}
               className="w-full p-2 border rounded"
               placeholder="Enter custom amount"
-              value={customAmount}
+              // value={customAmount}
               onChange={(e) => setCustomAmount(Number(e.target.value))}
             />
           )}

@@ -4,7 +4,7 @@ const emailFooter = (): string => {
     <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #777;">
       <p>FirstDrip Adventures</p>
       <p>Nairobi, Kenya</p>
-      <p><a href="mailto:support@firstdripadventures.com" style="color: #007bff; text-decoration: none;">Contact Support</a></p>
+      <p><a href="mailto:support@firstdripadventures.co.ke" style="color: #007bff; text-decoration: none;">Contact Support</a></p>
     </div>
   `;
 };
@@ -29,7 +29,7 @@ export const generateAdminNotificationTemplate = (
       <body style="background-color: #f4f4f4; color: #333;">
         <div style="max-width: 600px; margin: 20px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
           <div style="text-align: center;">
-            <img src="https://firstdripadventures.com/logo.png" alt="FirstDrip Adventures Logo" style="width: 150px;" />
+            <img src="https://firstdripadventures.co.ke/logo.png" alt="FirstDrip Adventures Logo" style="width: 150px;" />
             <h1>New Contact Form Submission</h1>
           </div>
           <div>
@@ -64,7 +64,7 @@ export const generateUserConfirmationTemplate = (userName: string): string => {
       <body style="background-color: #f4f4f4; color: #333;">
         <div style="max-width: 600px; margin: 20px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
           <div style="text-align: center;">
-            <img src="https://firstdripadventures.com/logo.png" alt="Logo" style="width: 150px;" />
+            <img src="https://firstdripadventures.co.ke/logo.png" alt="Logo" style="width: 150px;" />
             <h1>Hello, ${userName}!</h1>
           </div>
           <div>
@@ -226,7 +226,7 @@ export const generateUserTourPaymentConfirmation = (
       <body style="background-color: #f4f4f4; color: #333;">
         <div style="max-width: 600px; margin: 30px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
           <div style="text-align: center;">
-            <img src="https://firstdripadventures.com/logo.png" alt="Logo" style="width: 150px;" />
+            <img src="https://firstdripadventures.co.ke/logo.png" alt="Logo" style="width: 150px;" />
             <h1>Payment Received</h1>
           </div>
           <div>
@@ -266,7 +266,7 @@ export const generateUserTourPaymentRequest = (
       <body style="background-color: #f4f4f4; color: #333;">
         <div style="max-width: 600px; margin: 30px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
           <div style="text-align: center;">
-            <img src="https://firstdripadventures.com/logo.png" alt="Logo" style="width: 150px;" />
+            <img src="https://firstdripadventures.co.ke/logo.png" alt="Logo" style="width: 150px;" />
             <h1>Tour Payment Request</h1>
           </div>
           <div>
